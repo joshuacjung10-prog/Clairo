@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clairo — find the career you were built for</title>
+<meta name="description" content="Free AI-powered career quiz with built-in MBTI and enneagram tests. Get your top 5 career matches instantly.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#111;min-height:100vh}
+.page{display:none}.page.active{display:block}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid #f0f0f0;position:sticky;top:0;background:#fff;z-index:10}
+.logo{font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#111;cursor:pointer}
+.logo span{color:#D4537E}
+.btn{padding:9px 20px;border-radius:8px;font-size:14px;cursor:pointer;font-family:inherit;border:1px solid #e0e0e0;background:#fff;color:#111;transition:all 0.15s}
+.btn:hover{background:#f5f5f5}
+.btn-primary{background:#D4537E;border-color:#D4537E;color:#fff}
+.btn-primary:hover{background:#b8436a}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-ghost{background:transparent;border:1px solid #e0e0e0}
+.hero{text-align:center;padding:4rem 1.5rem 2.5rem;max-width:620px;margin:0 auto}
+.hero-eyebrow{font-size:12px;color:#993556;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;font-weight:600}
+.hero h1{font-size:36px;font-weight:700;color:#111;line-height:1.2;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:#D4537E}
+.hero p{font-size:17px;color:#555;line-height:1.65;margin-bottom:28px}
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap}
+.stat-num{font-size:22px;font-weight:700;color:#111}
+.stat-label{font-size:12px;color:#888;margin-top:2px}
+.cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.section{max-width:660px;margin:0 auto;padding:1rem 1.5rem 2.5rem}
+.section-title{font-size:12px;font-weight:600;color:#aaa;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;text-align:center}
+.steps-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.step-pill{background:#fafafa;border-radius:12px;padding:14px;text-align:center;border:1px solid #f0f0f0}
+.step-num{width:24px;height:24px;border-radius:50%;background:#FBEAF0;color:#993556;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.step-text{font-size:13px;color:#666;line-height:1.4}
+.pricing-wrap{max-width:560px;margin:0 auto;padding:0 1.5rem 3rem}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.plan{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:1.25rem}
+.plan.hot{border:2px solid #D4537E}
+.plan-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:#FBEAF0;color:#72243E;display:inline-block;margin-bottom:8px;font-weight:600}
+.plan-label{font-size:12px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.plan-price{font-size:28px;font-weight:700;color:#111;margin-bottom:4px}
+.plan-price sub{font-size:13px;font-weight:400;color:#888}
+.plan-line{font-size:13px;color:#888;padding:6px 0;border-top:1px solid #f5f5f5;display:flex;gap:8px;align-items:center}
+.plan-line.yes{color:#222}
+.dot{width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
+.dot.y{background:#FBEAF0;color:#993556}
+.dot.n{background:#f5f5f5;color:#bbb}
+.app-wrap{max-width:660px;margin:0 auto;padding:1.5rem 1.25rem 4rem}
+.prog{display:flex;gap:5px;margin-bottom:2rem}
+.ps{height:3px;border-radius:2px;flex:1;background:#f0f0f0;transition:background 0.3s}
+.ps.done{background:#D4537E}
+.q-label{font-size:12px;color:#bbb;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;font-weight:600}
+.q-title{font-size:22px;font-weight:700;color:#111;margin-bottom:6px}
+.q-sub{font-size:14px;color:#777;line-height:1.5;margin-bottom:1.25rem}
+.q-sub a{color:#D4537E;text-decoration:none}
+.tag-grid{display:flex;flex-wrap:wrap;gap:8px}
+.tag{padding:7px 15px;border-radius:20px;border:1px solid #e0e0e0;font-size:13px;cursor:pointer;background:#fff;color:#333;transition:all 0.15s;user-select:none}
+.tag:hover{border-color:#D4537E;color:#993556}
+.tag.sel{background:#FBEAF0;border-color:#D4537E;color:#72243E}
+textarea{width:100%;min-height:72px;padding:10px 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:14px;font-family:inherit;resize:vertical;background:#fff;color:#111;margin-top:10px}
+textarea:focus{outline:none;border-color:#D4537E}
+.btn-row{display:flex;justify-content:space-between;margin-top:2rem;gap:10px;align-items:center}
+.skip-link{font-size:13px;color:#bbb;cursor:pointer;text-decoration:underline}
+.skip-link:hover{color:#888}
+.spinner{width:36px;height:36px;border:3px solid #f0f0f0;border-top-color:#D4537E;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-wrap{text-align:center;padding:3rem 0}
+.loading-text{font-size:15px;color:#555;margin-bottom:4px}
+.loading-sub{font-size:13px;color:#aaa}
+.result-card{background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:1.25rem;margin-bottom:12px}
+.result-rank{font-size:11px;font-weight:600;color:#D4537E;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.result-title{font-size:19px;font-weight:700;color:#111;margin-bottom:6px}
+.result-vibe{font-size:14px;color:#666;line-height:1.6;margin-bottom:10px}
+.result-tags{display:flex;flex-wrap:wrap;gap:6px}
+.result-tag{font-size:12px;padding:4px 11px;border-radius:20px;background:#FBEAF0;color:#72243E}
+.paywall-box{padding:20px;border-radius:12px;background:#fafafa;border:1px solid #f0f0f0;text-align:center;margin:16px 0}
+.pw-title{font-size:16px;font-weight:700;color:#111;margin-bottom:6px}
+.pw-sub{font-size:13px;color:#777;margin-bottom:16px;line-height:1.5}
+.pw-features{text-align:left;margin-bottom:16px;display:inline-block}
+.pw-feature{font-size:13px;color:#333;padding:4px 0;display:flex;gap:8px;align-items:center}
+.share-card{background:#fafafa;border-radius:12px;padding:14px 16px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid #f0f0f0}
+.share-text{font-size:13px;color:#666}
+.share-text strong{color:#111;font-weight:600}
+.modal-bg{background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 65px);padding:1.5rem}
+.modal{background:#fff;border-radius:16px;padding:2rem;max-width:420px;width:100%;text-align:center}
+.modal-badge{display:inline-block;font-size:11px;padding:4px 12px;border-radius:20px;background:#FBEAF0;color:#72243E;margin-bottom:12px;font-weight:600}
+.modal-title{font-size:22px;font-weight:700;color:#111;margin-bottom:8px}
+.modal-sub{font-size:14px;color:#777;margin-bottom:18px;line-height:1.5}
+.modal-features{text-align:left;margin-bottom:18px}
+.mf{font-size:14px;color:#222;padding:7px 0;border-top:1px solid #f5f5f5;display:flex;gap:10px;align-items:center}
+.price-display{font-size:32px;font-weight:700;color:#111;margin-bottom:18px}
+.price-display span{font-size:15px;font-weight:400;color:#888}
+.success-bar{background:#FBEAF0;border:1px solid #F4C0D1;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.success-dot{width:8px;height:8px;border-radius:50%;background:#D4537E;flex-shrink:0}
+.success-text{font-size:13px;color:#72243E;font-weight:500}
+.type-badge{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;background:#FBEAF0;color:#72243E;font-size:13px;font-weight:600;margin-right:6px;margin-bottom:10px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.meta-box{background:#fafafa;border-radius:10px;padding:10px 12px}
+.meta-label{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;font-weight:600}
+.meta-value{font-size:13px;font-weight:600;color:#111}
+.meta-body{font-size:13px;color:#444;line-height:1.5}
+.section-head{font-size:12px;font-weight:600;color:#333;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.action-plan{font-size:13px;color:#555;line-height:2;white-space:pre-line}
+footer{text-align:center;padding:2rem 1rem;border-top:1px solid #f5f5f5;font-size:13px;color:#bbb}
+footer a{color:#D4537E;text-decoration:none}
+
+/* Quiz question card */
+.quiz-q{background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:1.5rem;margin-bottom:16px}
+.quiz-q-text{font-size:15px;font-weight:600;color:#111;margin-bottom:12px;line-height:1.4}
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{padding:10px 14px;border-radius:8px;border:1px solid #e0e0e0;font-size:14px;cursor:pointer;transition:all 0.15s;color:#333;background:#fff;text-align:left}
+.quiz-opt:hover{border-color:#D4537E;color:#993556;background:#fff9fb}
+.quiz-opt.sel{background:#FBEAF0;border-color:#D4537E;color:#72243E;font-weight:500}
+.quiz-progress-text{font-size:13px;color:#aaa;margin-bottom:1.5rem}
+.result-reveal{background:#FBEAF0;border-radius:14px;padding:1.5rem;text-align:center;margin-bottom:1.5rem}
+.result-reveal-label{font-size:12px;color:#993556;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:8px}
+.result-reveal-type{font-size:36px;font-weight:700;color:#72243E;margin-bottom:6px}
+.result-reveal-name{font-size:18px;font-weight:600;color:#993556;margin-bottom:10px}
+.result-reveal-desc{font-size:14px;color:#72243E;line-height:1.6}
+.mbti-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mc{padding:10px 14px;border-radius:12px;border:1px solid #e8e8e8;cursor:pointer;background:#fff;transition:all 0.15s}
+.mc:hover{border-color:#D4537E}
+.mc.sel{background:#FBEAF0;border-color:#D4537E}
+.mc .mt{font-size:15px;font-weight:600;color:#111}
+.mc .md{font-size:12px;color:#888;margin-top:2px}
+.enneagram-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ec{padding:12px 8px;border-radius:12px;border:1px solid #e8e8e8;cursor:pointer;background:#fff;transition:all 0.15s;text-align:center}
+.ec:hover{border-color:#D4537E}
+.ec.sel{background:#FBEAF0;border-color:#D4537E}
+.ec .en{font-size:20px;font-weight:700;color:#111}
+.ec .et{font-size:11px;color:#888;margin-top:3px;line-height:1.3}
+.toggle-row{display:flex;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap}
+.toggle-btn{padding:8px 16px;border-radius:20px;border:1px solid #e0e0e0;font-size:13px;cursor:pointer;background:#fff;color:#555;transition:all 0.15s}
+.toggle-btn.active{background:#FBEAF0;border-color:#D4537E;color:#72243E;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div class="page active" id="pg-home">
+  <nav class="nav">
+    <div class="logo" onclick="showPg('pg-home')">clai<span>ro</span></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" onclick="showPg('pg-pricing')" style="font-size:13px;padding:7px 14px">pricing</button>
+      <button class="btn btn-primary" onclick="showPg('pg-quiz');qgo(1)" style="font-size:13px;padding:7px 16px">take the quiz</button>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="hero-eyebrow">free personality + career quiz</div>
+    <h1>finally figure out what you're <em>actually</em> meant to do</h1>
+    <p>Built-in MBTI and enneagram tests included. Tell us your hobbies and strengths — we'll match you with careers you'd genuinely love.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">10 min</div><div class="stat-label">to complete</div></div>
+      <div class="stat"><div class="stat-num">100% free</div><div class="stat-label">basic results</div></div>
+      <div class="stat"><div class="stat-num">top 5</div><div class="stat-label">career matches</div></div>
+    </div>
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="showPg('pg-quiz');qgo(1)" style="font-size:16px;padding:13px 32px">find my careers — free</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">how it works</div>
+    <div class="steps-row">
+      <div class="step-pill"><div class="step-num">1</div><div class="step-text">take the built-in MBTI test</div></div>
+      <div class="step-pill"><div class="step-num">2</div><div class="step-text">take the enneagram test</div></div>
+      <div class="step-pill"><div class="step-num">3</div><div class="step-text">pick hobbies & strengths</div></div>
+      <div class="step-pill"><div class="step-num">4</div><div class="step-text">get your top 5 career matches</div></div>
+    </div>
+  </div>
+  <div class="pricing-wrap">
+    <div class="section-title">free vs full reading</div>
+    <div class="pricing-grid">
+      <div class="plan">
+        <div class="plan-label">Free</div>
+        <div class="plan-price">$0</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Built-in MBTI test</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Built-in enneagram test</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>All 5 career titles + reason</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Skill & vibe tags</div>
+        <div class="plan-line"><span class="dot n">–</span>Deep career breakdown</div>
+        <div class="plan-line"><span class="dot n">–</span>Salary ranges</div>
+        <div class="plan-line"><span class="dot n">–</span>How to actually get in</div>
+        <div class="plan-line"><span class="dot n">–</span>Your 90-day action plan</div>
+        <div style="margin-top:14px"><button class="btn" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">start free</button></div>
+      </div>
+      <div class="plan hot">
+        <div class="plan-badge">full reading</div>
+        <div class="plan-label">One-time</div>
+        <div class="plan-price">$9.99 <sub>once</sub></div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Everything in free</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Deep career breakdown</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Salary ranges</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>How to actually get in</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Your 90-day action plan</div>
+        <div style="margin-top:14px"><button class="btn btn-primary" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">get full reading</button></div>
+      </div>
+    </div>
+  </div>
+  <footer>clairo &nbsp;·&nbsp; <a href="mailto:hello@clairo.co">hello@clairo.co</a></footer>
+</div>
+
+<!-- PRICING -->
+<div class="page" id="pg-pricing">
+  <nav class="nav">
+    <div class="logo" onclick="showPg('pg-home')">clai<span>ro</span></div>
+    <button class="btn" onclick="showPg('pg-home')" style="font-size:13px;padding:7px 14px">back</button>
+  </nav>
+  <div style="max-width:560px;margin:0 auto;padding:3rem 1.5rem">
+    <div style="text-align:center;margin-bottom:2rem">
+      <div style="font-size:26px;font-weight:700;color:#111;margin-bottom:8px">no subscriptions. ever.</div>
+      <div style="font-size:16px;color:#777">take the quiz free. pay once for the full reading.</div>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan">
+        <div class="plan-label">Free</div>
+        <div class="plan-price">$0</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Built-in MBTI test</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Built-in enneagram test</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>All 5 career matches</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Skill & vibe tags</div>
+        <div class="plan-line"><span class="dot n">–</span>Deep career breakdown</div>
+        <div class="plan-line"><span class="dot n">–</span>Salary ranges</div>
+        <div class="plan-line"><span class="dot n">–</span>How to get in</div>
+        <div class="plan-line"><span class="dot n">–</span>90-day action plan</div>
+        <div style="margin-top:14px"><button class="btn" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">start free</button></div>
+      </div>
+      <div class="plan hot">
+        <div class="plan-badge">most popular</div>
+        <div class="plan-label">Full reading</div>
+        <div class="plan-price">$9.99 <sub>one-time</sub></div>
+        <div class="plan-line yes"><span class="dot y">✓</span>All 5 career matches</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Deep career breakdown</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>Salary ranges</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>How to get in</div>
+        <div class="plan-line yes"><span class="dot y">✓</span>90-day action plan</div>
+        <div style="margin-top:14px"><button class="btn btn-primary" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">get full reading</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="pg-quiz">
+  <nav class="nav">
+    <div class="logo" onclick="showPg('pg-home')">clai<span>ro</span></div>
+    <button class="btn" onclick="showPg('pg-home')" style="font-size:13px;padding:7px 14px">home</button>
+  </nav>
+  <div class="app-wrap">
+    <div class="prog">
+      <div class="ps done" id="pb1"></div>
+      <div class="ps" id="pb2"></div>
+      <div class="ps" id="pb3"></div>
+      <div class="ps" id="pb4"></div>
+      <div class="ps" id="pb5"></div>
+    </div>
+
+    <!-- Step 1: Hobbies -->
+    <div id="qs1">
+      <div class="q-label">Step 1 of 5</div>
+      <div class="q-title">what are you into?</div>
+      <div class="q-sub">pick everything that's genuinely you — no wrong answers.</div>
+      <div class="tag-grid" id="hobby-tags"></div>
+      <textarea id="custom-hobbies" placeholder="anything else? add it here..."></textarea>
+      <div class="btn-row"><div></div><button class="btn btn-primary" onclick="qgo(2)">next</button></div>
+    </div>
+
+    <!-- Step 2: Strengths -->
+    <div id="qs2" style="display:none">
+      <div class="q-label">Step 2 of 5</div>
+      <div class="q-title">your top strengths?</div>
+      <div class="q-sub">pick up to 5 — the things you're actually good at.</div>
+      <div class="tag-grid" id="strength-tags"></div>
+      <div class="btn-row"><button class="btn" onclick="qgo(1)">back</button><button class="btn btn-primary" onclick="qgo(3)">next</button></div>
+    </div>
+
+    <!-- Step 3: MBTI test -->
+    <div id="qs3" style="display:none">
+      <div class="q-label">Step 3 of 5 — MBTI</div>
+      <div class="q-title">let's find your personality type</div>
+      <div class="q-sub">answer honestly — there are no right or wrong answers.</div>
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="mbti-test-btn" onclick="switchMBTIMode('test')">take the test</button>
+        <button class="toggle-btn" id="mbti-know-btn" onclick="switchMBTIMode('know')">I already know mine</button>
+      </div>
+      <div id="mbti-test-section">
+        <div class="quiz-progress-text" id="mbti-q-progress">question 1 of 12</div>
+        <div id="mbti-questions"></div>
+        <div class="btn-row" style="margin-top:1rem">
+          <button class="btn" onclick="qgo(2)">back</button>
+          <button class="btn btn-primary" id="mbti-next-btn" onclick="nextMBTIQ()">next question</button>
+        </div>
+      </div>
+      <div id="mbti-know-section" style="display:none">
+        <div class="mbti-grid" id="mbti-grid"></div>
+        <div class="btn-row"><button class="btn" onclick="qgo(2)">back</button><button class="btn btn-primary" onclick="qgo(4)">next</button></div>
+      </div>
+    </div>
+
+    <!-- Step 4: Enneagram test -->
+    <div id="qs4" style="display:none">
+      <div class="q-label">Step 4 of 5 — Enneagram</div>
+      <div class="q-title">now let's find your enneagram</div>
+      <div class="q-sub">pick the statement that feels most true to you.</div>
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="enn-test-btn" onclick="switchEnnMode('test')">take the test</button>
+        <button class="toggle-btn" id="enn-know-btn" onclick="switchEnnMode('know')">I already know mine</button>
+      </div>
+      <div id="enn-test-section">
+        <div class="quiz-progress-text" id="enn-q-progress">question 1 of 9</div>
+        <div id="enn-questions"></div>
+        <div class="btn-row" style="margin-top:1rem">
+          <button class="btn" onclick="qgo(3)">back</button>
+          <button class="btn btn-primary" id="enn-next-btn" onclick="nextEnnQ()">next question</button>
+        </div>
+      </div>
+      <div id="enn-know-section" style="display:none">
+        <div class="enneagram-grid" id="enneagram-grid"></div>
+        <div class="btn-row"><button class="btn" onclick="qgo(3)">back</button><button class="btn btn-primary" onclick="qgo(5)">next</button></div>
+      </div>
+    </div>
+
+    <!-- Step 5: Work values -->
+    <div id="qs5" style="display:none">
+      <div class="q-label">Step 5 of 5</div>
+      <div class="q-title">what matters to you in a career?</div>
+      <div class="q-sub">pick up to 6 — be honest with yourself.</div>
+      <div class="tag-grid" id="value-tags"></div>
+      <div class="btn-row"><button class="btn" onclick="qgo(4)">back</button><button class="btn btn-primary" id="gen-btn" onclick="generateResults()">get my matches</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="page" id="pg-results">
+  <nav class="nav">
+    <div class="logo" onclick="showPg('pg-home');resetAll()">clai<span>ro</span></div>
+    <button class="btn" onclick="showPg('pg-home');resetAll()" style="font-size:13px;padding:7px 14px">start over</button>
+  </nav>
+  <div class="app-wrap">
+    <div id="res-loading" class="loading-wrap">
+      <div class="spinner"></div>
+      <div class="loading-text">reading your vibe...</div>
+      <div class="loading-sub">matching you with careers that actually fit</div>
+    </div>
+    <div id="res-content" style="display:none">
+      <div id="type-badges"></div>
+      <div style="font-size:22px;font-weight:700;color:#111;margin-bottom:5px">your top 5 career matches</div>
+      <div style="font-size:14px;color:#777;margin-bottom:1.5rem" id="res-sub"></div>
+      <div id="cards-free"></div>
+      <div id="paywall-section"></div>
+      <div id="share-section"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT -->
+<div class="page" id="pg-payment">
+  <nav class="nav">
+    <div class="logo" onclick="showPg('pg-home')">clai<span>ro</span></div>
+    <button class="btn" onclick="showPg('pg-results')" style="font-size:13px;padding:7px 14px">back</button>
+  </nav>
+  <div class="modal-bg">
+    <div class="modal">
+      <div class="modal-badge">clairo full reading</div>
+      <div class="modal-title">unlock your full career reading</div>
+      <div class="modal-sub">one payment. no subscription. yours forever.</div>
+      <div class="modal-features">
+        <div class="mf"><span class="dot y">✓</span>deep breakdown for all 5 careers</div>
+        <div class="mf"><span class="dot y">✓</span>real salary ranges & job outlook</div>
+        <div class="mf"><span class="dot y">✓</span>how to actually break into each field</div>
+        <div class="mf"><span class="dot y">✓</span>your personal 90-day action plan</div>
+      </div>
+      <div class="price-display">$9.99 <span>one-time</span></div>
+      <button class="btn btn-primary" style="width:100%;font-size:16px;padding:14px" onclick="goStripe()">pay $9.99 with stripe</button>
+      <div style="font-size:12px;color:#bbb;margin-top:12px">secured by stripe — we never see your card details</div>
+    </div>
+  </div>
+</div>
+
+<!-- PREMIUM -->
+<div class="page" id="pg-premium">
+  <nav class="nav">
+    <div class="logo" onclick="showPg('pg-home');resetAll()">clai<span>ro</span></div>
+    <button class="btn" onclick="showPg('pg-home');resetAll()" style="font-size:13px;padding:7px 14px">home</button>
+  </nav>
+  <div class="app-wrap">
+    <div class="success-bar">
+      <div class="success-dot"></div>
+      <div class="success-text">payment confirmed — your full reading is unlocked.</div>
+    </div>
+    <div id="premium-type-badges"></div>
+    <div style="font-size:22px;font-weight:700;color:#111;margin-bottom:5px">your full career reading</div>
+    <div style="font-size:14px;color:#777;margin-bottom:1.5rem" id="premium-sub"></div>
+    <div id="prem-loading" class="loading-wrap"><div class="spinner"></div><div class="loading-text">building your reading...</div><div class="loading-sub">this takes about 20 seconds</div></div>
+    <div id="prem-cards"></div>
+  </div>
+</div>
+
+<script>
+const STRIPE_LINK = 'YOUR_STRIPE_LINK_HERE';
+
+// ── Data ──────────────────────────────────────────────
+const HOBBIES = ["Gaming","Music","Writing","Photography","Art & design","Cooking","Fitness","Travel","Reading","Coding","Film & TV","Sports","Dance","Hiking & nature","Volunteering","Fashion","Podcasts","Robotics","Investing","Woodworking","Video editing","Board games","Languages","3D printing","Makeup & beauty","Content creation","Anime","Psychology","Entrepreneurship","Graphic design"];
+const VALUES = ["Helping people","Creative freedom","Solving problems","Financial security","Being a leader","Work-life balance","Building new things","Always learning","Making an impact","Working independently","Teamwork","Being recognized","Variety every day","Job stability","Starting something","Hands-on work","Working remotely","Mentoring others"];
+const STRENGTHS = ["Analytical thinking","Creativity","Communication","Empathy","Leadership","Technical skills","Attention to detail","Adaptability","Research","Teamwork","Persuasion","Organization","Critical thinking","Teaching others","Risk-taking","Big-picture thinking","Fast learner","Storytelling"];
+
+// MBTI 12 questions — each has a dimension (EI, SN, TF, JP) and two options
+const MBTI_QS = [
+  {dim:'EI', q:"At a party, you tend to…", a:["talk to many people, including strangers","stick to a few people you know well"]},
+  {dim:'EI', q:"After a long social day, you feel…", a:["energized and want to keep going","drained and need alone time to recharge"]},
+  {dim:'EI', q:"You prefer to…", a:["think out loud and talk through ideas","think things through before speaking"]},
+  {dim:'SN', q:"You trust more…", a:["concrete facts and past experiences","gut feelings and future possibilities"]},
+  {dim:'SN', q:"You'd rather work on…", a:["realistic, practical projects","creative, imaginative projects"]},
+  {dim:'SN', q:"When learning something new, you prefer…", a:["step-by-step instructions","understanding the big picture first"]},
+  {dim:'TF', q:"When making decisions, you rely more on…", a:["logic and objective analysis","your feelings and how people are affected"]},
+  {dim:'TF', q:"You find it more natural to…", a:["point out flaws in someone's reasoning","be supportive and avoid conflict"]},
+  {dim:'TF', q:"People would describe you as more…", a:["rational and fair","warm and compassionate"]},
+  {dim:'JP', q:"Your workspace or room is usually…", a:["organized with a clear system","more spontaneous and flexible"]},
+  {dim:'JP', q:"You prefer…", a:["having things decided and planned ahead","keeping options open and being flexible"]},
+  {dim:'JP', q:"Deadlines feel…", a:["important — you like finishing early","like a guideline — you often work best last minute"]}
+];
+
+// Enneagram — 9 questions, one per type, pick the most like you
+const ENN_QS = [
+  {type:1, q:"Which statement feels most like you?", opts:["I have strong principles and always try to do what's right","I find it hard to rest if things aren't done correctly","I notice flaws that others miss and feel compelled to fix them"]},
+  {type:2, q:"Which statement feels most like you?", opts:["I genuinely love helping people and making them feel cared for","I have a hard time asking for help myself","People often come to me when they need support"]},
+  {type:3, q:"Which statement feels most like you?", opts:["I'm driven to succeed and reach my goals","I care a lot about how others see me","I adapt easily to what's needed to get the job done"]},
+  {type:4, q:"Which statement feels most like you?", opts:["I feel like I'm different from most people","I'm deeply creative and in touch with my emotions","I long for things that feel missing from my life"]},
+  {type:5, q:"Which statement feels most like you?", opts:["I love learning and figuring out how things work","I need a lot of alone time to feel okay","I prefer observing to participating"]},
+  {type:6, q:"Which statement feels most like you?", opts:["I think about what could go wrong so I'm prepared","I value loyalty and reliability above most things","I often second-guess my own decisions"]},
+  {type:7, q:"Which statement feels most like you?", opts:["I'm always excited about new ideas and experiences","I avoid boredom and routine at all costs","I'm naturally optimistic and love having options"]},
+  {type:8, q:"Which statement feels most like you?", opts:["I don't back down from a challenge","I like being in control of my own life and decisions","I protect the people I care about fiercely"]},
+  {type:9, q:"Which statement feels most like you?", opts:["I naturally see all sides of an argument","I hate conflict and go out of my way to avoid it","I feel most at peace when everyone around me is okay"]}
+];
+
+const ENN_NAMES = ["","The Perfectionist","The Helper","The Achiever","The Individualist","The Investigator","The Loyalist","The Enthusiast","The Challenger","The Peacemaker"];
+const MBTI_DESCRIPTIONS = {
+  INTJ:"strategic mastermind",INTP:"logical analyzer",ENTJ:"born leader",ENTP:"idea machine",
+  INFJ:"quiet visionary",INFP:"deep feeler",ENFJ:"natural mentor",ENFP:"hype person",
+  ISTJ:"dependable planner",ISFJ:"caring protector",ESTJ:"organized director",ESFJ:"everyone's support",
+  ISTP:"cool under pressure",ISFP:"gentle creator",ESTP:"bold action-taker",ESFP:"living out loud"
+};
+
+// ── State ─────────────────────────────────────────────
+let sel = {hobbies:new Set(), values:new Set(), strengths:new Set(), mbti:null, enneagram:null};
+let freeResults = [];
+let mbtiAnswers = {}; // dim -> 0 (first opt = E/S/T/J) or 1 (second = I/N/F/P)
+let mbtiQIndex = 0;
+let ennAnswers = []; // array of selected type scores
+let ennQIndex = 0;
+let mbtiMode = 'test';
+let ennMode = 'test';
+
+// ── Helpers ───────────────────────────────────────────
+function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function $(id){return document.getElementById(id);}
+
+function makeTagGrid(cid, items, set, max){
+  const el=$(cid); el.innerHTML='';
+  items.forEach(item=>{
+    const t=document.createElement('div'); t.className='tag'; t.textContent=item;
+    t.onclick=()=>{
+      if(set.has(item)){set.delete(item);t.classList.remove('sel');}
+      else if(!max||set.size<max){set.add(item);t.classList.add('sel');}
+    };
+    el.appendChild(t);
+  });
+}
+function makeMBTIGrid(){
+  const el=$('mbti-grid'); el.innerHTML='';
+  Object.entries(MBTI_DESCRIPTIONS).forEach(([type,desc])=>{
+    const c=document.createElement('div'); c.className='mc';
+    c.innerHTML=`<div class="mt">${type}</div><div class="md">${desc}</div>`;
+    c.onclick=()=>{document.querySelectorAll('.mc').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');sel.mbti=type;};
+    el.appendChild(c);
+  });
+}
+function makeEnnGrid(){
+  const el=$('enneagram-grid'); el.innerHTML='';
+  for(let i=1;i<=9;i++){
+    const c=document.createElement('div'); c.className='ec';
+    c.innerHTML=`<div class="en">${i}</div><div class="et">${ENN_NAMES[i]}</div>`;
+    c.onclick=()=>{document.querySelectorAll('.ec').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');sel.enneagram=i+' — '+ENN_NAMES[i];};
+    el.appendChild(c);
+  }
+}
+
+makeTagGrid('hobby-tags', HOBBIES, sel.hobbies, 0);
+makeTagGrid('strength-tags', STRENGTHS, sel.strengths, 5);
+makeTagGrid('value-tags', VALUES, sel.values, 6);
+makeMBTIGrid();
+makeEnnGrid();
+
+// ── MBTI Test Logic ───────────────────────────────────
+function switchMBTIMode(mode){
+  mbtiMode = mode;
+  $('mbti-test-section').style.display = mode==='test'?'block':'none';
+  $('mbti-know-section').style.display = mode==='know'?'block':'none';
+  $('mbti-test-btn').classList.toggle('active', mode==='test');
+  $('mbti-know-btn').classList.toggle('active', mode==='know');
+}
+function renderMBTIQ(){
+  const q = MBTI_QS[mbtiQIndex];
+  $('mbti-q-progress').textContent = `question ${mbtiQIndex+1} of ${MBTI_QS.length}`;
+  $('mbti-next-btn').textContent = mbtiQIndex < MBTI_QS.length-1 ? 'next question' : 'see my type';
+  $('mbti-questions').innerHTML = `
+    <div class="quiz-q">
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options">
+        ${q.a.map((opt,i)=>`<div class="quiz-opt" id="mbti-opt-${i}" onclick="selectMBTIOpt(${i})">${opt}</div>`).join('')}
+      </div>
+    </div>`;
+  if(mbtiAnswers[mbtiQIndex] !== undefined){
+    $(`mbti-opt-${mbtiAnswers[mbtiQIndex]}`).classList.add('sel');
+  }
+}
+function selectMBTIOpt(i){
+  mbtiAnswers[mbtiQIndex] = i;
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('sel'));
+  $(`mbti-opt-${i}`).classList.add('sel');
+}
+function nextMBTIQ(){
+  if(mbtiAnswers[mbtiQIndex]===undefined){alert('please pick an answer first!');return;}
+  if(mbtiQIndex < MBTI_QS.length-1){
+    mbtiQIndex++;
+    renderMBTIQ();
+  } else {
+    // Calculate MBTI
+    const scores = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+    MBTI_QS.forEach((q,i)=>{
+      const ans = mbtiAnswers[i];
+      if(q.dim==='EI'){ans===0?scores.E++:scores.I++;}
+      else if(q.dim==='SN'){ans===0?scores.S++:scores.N++;}
+      else if(q.dim==='TF'){ans===0?scores.T++:scores.F++;}
+      else if(q.dim==='JP'){ans===0?scores.J++:scores.P++;}
+    });
+    const type = (scores.E>=scores.I?'E':'I')+(scores.S>=scores.N?'S':'N')+(scores.T>=scores.F?'T':'F')+(scores.J>=scores.P?'J':'P');
+    sel.mbti = type;
+    // Show result reveal then go to step 4
+    $('mbti-questions').innerHTML = `
+      <div class="result-reveal">
+        <div class="result-reveal-label">your MBTI type is</div>
+        <div class="result-reveal-type">${type}</div>
+        <div class="result-reveal-name">${MBTI_DESCRIPTIONS[type]||''}</div>
+        <div class="result-reveal-desc">Based on your answers, this is your personality type. We'll use this to find your best career matches.</div>
+      </div>`;
+    $('mbti-next-btn').textContent = 'continue to enneagram';
+    $('mbti-next-btn').onclick = ()=>qgo(4);
+    $('mbti-q-progress').textContent = 'type calculated!';
+  }
+}
+
+// ── Enneagram Test Logic ──────────────────────────────
+const ennScores = {};
+function switchEnnMode(mode){
+  ennMode = mode;
+  $('enn-test-section').style.display = mode==='test'?'block':'none';
+  $('enn-know-section').style.display = mode==='know'?'block':'none';
+  $('enn-test-btn').classList.toggle('active', mode==='test');
+  $('enn-know-btn').classList.toggle('active', mode==='know');
+}
+function renderEnnQ(){
+  const q = ENN_QS[ennQIndex];
+  $('enn-q-progress').textContent = `question ${ennQIndex+1} of ${ENN_QS.length}`;
+  $('enn-next-btn').textContent = ennQIndex < ENN_QS.length-1 ? 'next question' : 'see my type';
+  $('enn-questions').innerHTML = `
+    <div class="quiz-q">
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((opt,i)=>`<div class="quiz-opt" id="enn-opt-${i}" onclick="selectEnnOpt(${i},${q.type})">${opt}</div>`).join('')}
+      </div>
+    </div>`;
+  if(ennAnswers[ennQIndex] !== undefined){
+    $(`enn-opt-${ennAnswers[ennQIndex]}`).classList.add('sel');
+  }
+}
+function selectEnnOpt(i, type){
+  ennAnswers[ennQIndex] = i;
+  if(!ennScores[type]) ennScores[type]=0;
+  ennScores[type]++;
+  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('sel'));
+  $(`enn-opt-${i}`).classList.add('sel');
+}
+function nextEnnQ(){
+  if(ennAnswers[ennQIndex]===undefined){alert('please pick an answer first!');return;}
+  if(ennQIndex < ENN_QS.length-1){
+    ennQIndex++;
+    renderEnnQ();
+  } else {
+    // Find highest scoring type
+    let best=1, bestScore=0;
+    for(let t=1;t<=9;t++){
+      if((ennScores[t]||0)>bestScore){bestScore=ennScores[t];best=t;}
+    }
+    sel.enneagram = best+' — '+ENN_NAMES[best];
+    $('enn-questions').innerHTML = `
+      <div class="result-reveal">
+        <div class="result-reveal-label">your enneagram type is</div>
+        <div class="result-reveal-type">Type ${best}</div>
+        <div class="result-reveal-name">${ENN_NAMES[best]}</div>
+        <div class="result-reveal-desc">Based on your answers, this type reflects your core motivations and fears. We'll combine this with your MBTI to find your best careers.</div>
+      </div>`;
+    $('enn-next-btn').textContent = 'continue';
+    $('enn-next-btn').onclick = ()=>qgo(5);
+    $('enn-q-progress').textContent = 'type calculated!';
+  }
+}
+
+// ── Quiz Navigation ───────────────────────────────────
+function qgo(n){
+  for(let i=1;i<=5;i++){
+    $(('qs'+i)).style.display = i===n?'block':'none';
+    $('pb'+i).classList.toggle('done', i<=n);
+  }
+  if(n===3 && mbtiMode==='test'){ mbtiQIndex=0; renderMBTIQ(); }
+  if(n===4 && ennMode==='test'){ ennQIndex=0; renderEnnQ(); }
+  window.scrollTo(0,0);
+}
+
+function resetAll(){
+  sel={hobbies:new Set(),values:new Set(),strengths:new Set(),mbti:null,enneagram:null};
+  freeResults=[];
+  mbtiAnswers={}; mbtiQIndex=0;
+  Object.keys(ennScores).forEach(k=>delete ennScores[k]);
+  ennAnswers=[]; ennQIndex=0;
+  document.querySelectorAll('.tag.sel').forEach(t=>t.classList.remove('sel'));
+  document.querySelectorAll('.mc.sel,.ec.sel').forEach(c=>c.classList.remove('sel'));
+  $('custom-hobbies').value='';
+  switchMBTIMode('test'); switchEnnMode('test');
+  // Reset MBTI next btn
+  $('mbti-next-btn').onclick = ()=>nextMBTIQ();
+  $('enn-next-btn').onclick = ()=>nextEnnQ();
+  qgo(1);
+}
+
+function goStripe(){
+  if(STRIPE_LINK==='YOUR_STRIPE_LINK_HERE'){alert('Payment coming soon!');return;}
+  window.location.href = STRIPE_LINK;
+}
+
+function typeBadgesHTML(){
+  let b='';
+  if(sel.mbti) b+=`<span class="type-badge">${sel.mbti}</span>`;
+  if(sel.enneagram) b+=`<span class="type-badge">type ${sel.enneagram.split(' ')[0]}</span>`;
+  return b ? `<div style="margin-bottom:12px">${b}</div>` : '';
+}
+
+// ── AI Calls ──────────────────────────────────────────
+function buildPrompt(mode){
+  const h=[...sel.hobbies];
+  const ch=$('custom-hobbies').value.trim();
+  if(ch)h.push(ch);
+  const profile=`hobbies: ${h.join(', ')||'not specified'}, strengths: ${[...sel.strengths].join(', ')||'not specified'}, values: ${[...sel.values].join(', ')||'not specified'}, MBTI: ${sel.mbti||'not specified'}, enneagram: ${sel.enneagram||'not specified'}`;
+  if(mode==='free'){
+    return `You are a career advisor for high school and college students. Based on this profile, generate exactly 5 ranked career matches. Use casual, encouraging language like a knowledgeable friend. Be specific to their profile — reference their actual hobbies, MBTI, and enneagram.
+Profile: ${profile}
+Respond ONLY with a valid JSON array, no markdown, no extra text. Each object: {"title":"career title","shortWhy":"one casual sentence referencing their specific profile","tags":["tag1","tag2","tag3"]}`;
+  } else {
+    return `You are a career advisor for high school and college students. Give a full premium career reading for these 5 careers: ${freeResults.map(r=>r.title).join(', ')}.
+Profile: ${profile}
+Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career title","deepWhy":"3 casual sentences referencing their MBTI, enneagram, hobbies, and values — make it feel very personal","salary":"realistic range e.g. $52,000 – $115,000/yr","outlook":"1 sentence on job market right now","howToBreakIn":"2 practical sentences for a student with no experience","actionPlan":"- Day 1–30: specific action\\n- Day 31–60: specific action\\n- Day 61–90: specific action"}`;
+  }
+}
+
+async function callClaude(prompt){
+  const res = await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:2000,messages:[{role:"user",content:prompt}]})
+  });
+  const data = await res.json();
+  const raw = data.content.map(b=>b.text||'').join('');
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+async function generateResults(){
+  $('gen-btn').disabled=true;
+  showPg('pg-results');
+  $('res-loading').style.display='block';
+  $('res-content').style.display='none';
+  try{
+    freeResults = await callClaude(buildPrompt('free'));
+    $('res-loading').style.display='none';
+    $('res-content').style.display='block';
+    $('type-badges').innerHTML = typeBadgesHTML();
+    const parts=[];
+    if(sel.mbti) parts.push(sel.mbti);
+    if(sel.enneagram) parts.push('type '+sel.enneagram.split(' ')[0]);
+    $('res-sub').textContent = parts.length ? `based on your ${parts.join(' + ')} profile` : 'based on your hobbies, strengths, and values';
+    $('cards-free').innerHTML = freeResults.map((c,i)=>`
+      <div class="result-card">
+        <div class="result-rank">#${i+1} match</div>
+        <div class="result-title">${c.title}</div>
+        <div class="result-vibe">${c.shortWhy}</div>
+        <div class="result-tags">${(c.tags||[]).map(t=>`<span class="result-tag">${t}</span>`).join('')}</div>
+      </div>`).join('');
+    $('paywall-section').innerHTML = `
+      <div class="paywall-box">
+        <div class="pw-title">want the full deep-dive?</div>
+        <div class="pw-sub">unlock salary ranges, how to break into each career, and a personal 90-day action plan — all tailored to your exact profile.</div>
+        <div class="pw-features">
+          <div class="pw-feature"><span class="dot y">✓</span>deep breakdown for all 5 careers</div>
+          <div class="pw-feature"><span class="dot y">✓</span>real salary ranges & job outlook</div>
+          <div class="pw-feature"><span class="dot y">✓</span>how to actually get hired with no experience</div>
+          <div class="pw-feature"><span class="dot y">✓</span>your personal 90-day action plan</div>
+        </div>
+        <button class="btn btn-primary" onclick="showPg('pg-payment')" style="width:100%;font-size:15px;padding:12px;margin-top:8px">unlock full reading — $9.99</button>
+        <div style="font-size:12px;color:#bbb;margin-top:8px">one-time · no subscription · no catch</div>
+      </div>`;
+    const top = freeResults[0]?.title||'my top career match';
+    $('share-section').innerHTML = `
+      <div class="share-card">
+        <div class="share-text">share your result — <strong>"I got ${top}"</strong></div>
+        <button class="btn" style="font-size:12px;padding:6px 14px;white-space:nowrap" onclick="navigator.clipboard.writeText('just took the clairo career quiz and got ${top} as my #1 match 👀 try it free → clairo.vercel.app').then(()=>alert('copied! paste it in your story'))">copy to share</button>
+      </div>`;
+  } catch(e){
+    $('res-loading').innerHTML=`<div style="text-align:center;color:#D4537E;font-size:15px">something went wrong — <span style="cursor:pointer;text-decoration:underline" onclick="showPg('pg-quiz')">try again?</span></div>`;
+  }
+  $('gen-btn').disabled=false;
+}
+
+async function unlockPremium(){
+  showPg('pg-premium');
+  $('premium-type-badges').innerHTML = typeBadgesHTML();
+  const parts=[];
+  if(sel.mbti) parts.push(sel.mbti);
+  if(sel.enneagram) parts.push('type '+sel.enneagram.split(' ')[0]);
+  $('premium-sub').textContent = parts.length ? `your ${parts.join(' + ')} full reading` : 'your personalized full reading';
+  $('prem-loading').style.display='block';
+  $('prem-cards').innerHTML='';
+  try{
+    const pr = await callClaude(buildPrompt('premium'));
+    $('prem-loading').style.display='none';
+    $('prem-cards').innerHTML = pr.map((c,i)=>`
+      <div class="result-card">
+        <div class="result-rank">#${i+1} match</div>
+        <div class="result-title">${c.title}</div>
+        <div style="font-size:14px;color:#555;line-height:1.65;margin-bottom:14px">${c.deepWhy}</div>
+        <div class="meta-grid">
+          <div class="meta-box"><div class="meta-label">salary range</div><div class="meta-value">${c.salary}</div></div>
+          <div class="meta-box"><div class="meta-label">job outlook</div><div class="meta-body">${c.outlook}</div></div>
+        </div>
+        <div style="margin-bottom:12px">
+          <div class="section-head">how to get in</div>
+          <div style="font-size:14px;color:#555;line-height:1.6">${c.howToBreakIn}</div>
+        </div>
+        <div>
+          <div class="section-head">your 90-day plan</div>
+          <div style="font-size:13px;color:#555;line-height:2;white-space:pre-line">${c.actionPlan}</div>
+        </div>
+      </div>`).join('');
+  } catch(e){
+    $('prem-loading').innerHTML=`<div style="text-align:center;color:#D4537E;">something went wrong — please refresh and try again.</div>`;
+  }
+}
+
+if(window.location.search.includes('paid=true')){ unlockPremium(); }
+</script>
+</body>
+</html>
