@@ -101,11 +101,8 @@ textarea:focus{outline:none;border-color:#D4537E}
 .meta-value{font-size:13px;font-weight:600;color:#111}
 .meta-body{font-size:13px;color:#444;line-height:1.5}
 .section-head{font-size:12px;font-weight:600;color:#333;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
-.action-plan{font-size:13px;color:#555;line-height:2;white-space:pre-line}
 footer{text-align:center;padding:2rem 1rem;border-top:1px solid #f5f5f5;font-size:13px;color:#bbb}
 footer a{color:#D4537E;text-decoration:none}
-
-/* Quiz question card */
 .quiz-q{background:#fff;border:1px solid #ebebeb;border-radius:14px;padding:1.5rem;margin-bottom:16px}
 .quiz-q-text{font-size:15px;font-weight:600;color:#111;margin-bottom:12px;line-height:1.4}
 .quiz-options{display:flex;flex-direction:column;gap:8px}
@@ -143,7 +140,7 @@ footer a{color:#D4537E;text-decoration:none}
     <div class="logo" onclick="showPg('pg-home')">clai<span>ro</span></div>
     <div style="display:flex;gap:8px">
       <button class="btn btn-ghost" onclick="showPg('pg-pricing')" style="font-size:13px;padding:7px 14px">pricing</button>
-      <button class="btn btn-primary" onclick="showPg('pg-quiz');qgo(1)" style="font-size:13px;padding:7px 16px">take the quiz</button>
+      <button class="btn btn-primary" onclick="startQuiz()" style="font-size:13px;padding:7px 16px">take the quiz</button>
     </div>
   </nav>
   <div class="hero">
@@ -156,7 +153,7 @@ footer a{color:#D4537E;text-decoration:none}
       <div class="stat"><div class="stat-num">top 5</div><div class="stat-label">career matches</div></div>
     </div>
     <div class="cta-row">
-      <button class="btn btn-primary" onclick="showPg('pg-quiz');qgo(1)" style="font-size:16px;padding:13px 32px">find my careers — free</button>
+      <button class="btn btn-primary" onclick="startQuiz()" style="font-size:16px;padding:13px 32px">find my careers — free</button>
     </div>
   </div>
   <div class="section">
@@ -182,7 +179,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="plan-line"><span class="dot n">–</span>Salary ranges</div>
         <div class="plan-line"><span class="dot n">–</span>How to actually get in</div>
         <div class="plan-line"><span class="dot n">–</span>Your 90-day action plan</div>
-        <div style="margin-top:14px"><button class="btn" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">start free</button></div>
+        <div style="margin-top:14px"><button class="btn" style="width:100%;font-size:13px" onclick="startQuiz()">start free</button></div>
       </div>
       <div class="plan hot">
         <div class="plan-badge">full reading</div>
@@ -193,7 +190,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="plan-line yes"><span class="dot y">✓</span>Salary ranges</div>
         <div class="plan-line yes"><span class="dot y">✓</span>How to actually get in</div>
         <div class="plan-line yes"><span class="dot y">✓</span>Your 90-day action plan</div>
-        <div style="margin-top:14px"><button class="btn btn-primary" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">get full reading</button></div>
+        <div style="margin-top:14px"><button class="btn btn-primary" style="width:100%;font-size:13px" onclick="startQuiz()">get full reading</button></div>
       </div>
     </div>
   </div>
@@ -223,7 +220,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="plan-line"><span class="dot n">–</span>Salary ranges</div>
         <div class="plan-line"><span class="dot n">–</span>How to get in</div>
         <div class="plan-line"><span class="dot n">–</span>90-day action plan</div>
-        <div style="margin-top:14px"><button class="btn" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">start free</button></div>
+        <div style="margin-top:14px"><button class="btn" style="width:100%;font-size:13px" onclick="startQuiz()">start free</button></div>
       </div>
       <div class="plan hot">
         <div class="plan-badge">most popular</div>
@@ -234,7 +231,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="plan-line yes"><span class="dot y">✓</span>Salary ranges</div>
         <div class="plan-line yes"><span class="dot y">✓</span>How to get in</div>
         <div class="plan-line yes"><span class="dot y">✓</span>90-day action plan</div>
-        <div style="margin-top:14px"><button class="btn btn-primary" style="width:100%;font-size:13px" onclick="showPg('pg-quiz');qgo(1)">get full reading</button></div>
+        <div style="margin-top:14px"><button class="btn btn-primary" style="width:100%;font-size:13px" onclick="startQuiz()">get full reading</button></div>
       </div>
     </div>
   </div>
@@ -254,8 +251,6 @@ footer a{color:#D4537E;text-decoration:none}
       <div class="ps" id="pb4"></div>
       <div class="ps" id="pb5"></div>
     </div>
-
-    <!-- Step 1: Hobbies -->
     <div id="qs1">
       <div class="q-label">Step 1 of 5</div>
       <div class="q-title">what are you into?</div>
@@ -264,8 +259,6 @@ footer a{color:#D4537E;text-decoration:none}
       <textarea id="custom-hobbies" placeholder="anything else? add it here..."></textarea>
       <div class="btn-row"><div></div><button class="btn btn-primary" onclick="qgo(2)">next</button></div>
     </div>
-
-    <!-- Step 2: Strengths -->
     <div id="qs2" style="display:none">
       <div class="q-label">Step 2 of 5</div>
       <div class="q-title">your top strengths?</div>
@@ -273,8 +266,6 @@ footer a{color:#D4537E;text-decoration:none}
       <div class="tag-grid" id="strength-tags"></div>
       <div class="btn-row"><button class="btn" onclick="qgo(1)">back</button><button class="btn btn-primary" onclick="qgo(3)">next</button></div>
     </div>
-
-    <!-- Step 3: MBTI test -->
     <div id="qs3" style="display:none">
       <div class="q-label">Step 3 of 5 — MBTI</div>
       <div class="q-title">let's find your personality type</div>
@@ -288,7 +279,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div id="mbti-questions"></div>
         <div class="btn-row" style="margin-top:1rem">
           <button class="btn" onclick="qgo(2)">back</button>
-          <button class="btn btn-primary" id="mbti-next-btn" onclick="nextMBTIQ()">next question</button>
+          <button class="btn btn-primary" id="mbti-next-btn">next question</button>
         </div>
       </div>
       <div id="mbti-know-section" style="display:none">
@@ -296,8 +287,6 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="btn-row"><button class="btn" onclick="qgo(2)">back</button><button class="btn btn-primary" onclick="qgo(4)">next</button></div>
       </div>
     </div>
-
-    <!-- Step 4: Enneagram test -->
     <div id="qs4" style="display:none">
       <div class="q-label">Step 4 of 5 — Enneagram</div>
       <div class="q-title">now let's find your enneagram</div>
@@ -311,7 +300,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div id="enn-questions"></div>
         <div class="btn-row" style="margin-top:1rem">
           <button class="btn" onclick="qgo(3)">back</button>
-          <button class="btn btn-primary" id="enn-next-btn" onclick="nextEnnQ()">next question</button>
+          <button class="btn btn-primary" id="enn-next-btn">next question</button>
         </div>
       </div>
       <div id="enn-know-section" style="display:none">
@@ -319,8 +308,6 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="btn-row"><button class="btn" onclick="qgo(3)">back</button><button class="btn btn-primary" onclick="qgo(5)">next</button></div>
       </div>
     </div>
-
-    <!-- Step 5: Work values -->
     <div id="qs5" style="display:none">
       <div class="q-label">Step 5 of 5</div>
       <div class="q-title">what matters to you in a career?</div>
@@ -372,7 +359,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="mf"><span class="dot y">✓</span>your personal 90-day action plan</div>
       </div>
       <div class="price-display">$9.99 <span>one-time</span></div>
-      <button class="btn btn-primary" style="width:100%;font-size:16px;padding:14px" onclick="goStripe()">pay $9.99 with stripe</button>
+      <button class="btn btn-primary" style="width:100%;font-size:16px;padding:14px" onclick="window.location.href='https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00'">pay $9.99 with stripe</button>
       <div style="font-size:12px;color:#bbb;margin-top:12px">secured by stripe — we never see your card details</div>
     </div>
   </div>
@@ -398,362 +385,246 @@ footer a{color:#D4537E;text-decoration:none}
 </div>
 
 <script>
-const STRIPE_LINK = 'YOUR_STRIPE_LINK_HERE';
-
-// ── Data ──────────────────────────────────────────────
-const HOBBIES = ["Gaming","Music","Writing","Photography","Art & design","Cooking","Fitness","Travel","Reading","Coding","Film & TV","Sports","Dance","Hiking & nature","Volunteering","Fashion","Podcasts","Robotics","Investing","Woodworking","Video editing","Board games","Languages","3D printing","Makeup & beauty","Content creation","Anime","Psychology","Entrepreneurship","Graphic design"];
-const VALUES = ["Helping people","Creative freedom","Solving problems","Financial security","Being a leader","Work-life balance","Building new things","Always learning","Making an impact","Working independently","Teamwork","Being recognized","Variety every day","Job stability","Starting something","Hands-on work","Working remotely","Mentoring others"];
-const STRENGTHS = ["Analytical thinking","Creativity","Communication","Empathy","Leadership","Technical skills","Attention to detail","Adaptability","Research","Teamwork","Persuasion","Organization","Critical thinking","Teaching others","Risk-taking","Big-picture thinking","Fast learner","Storytelling"];
-
-// MBTI 12 questions — each has a dimension (EI, SN, TF, JP) and two options
-const MBTI_QS = [
-  {dim:'EI', q:"At a party, you tend to…", a:["talk to many people, including strangers","stick to a few people you know well"]},
-  {dim:'EI', q:"After a long social day, you feel…", a:["energized and want to keep going","drained and need alone time to recharge"]},
-  {dim:'EI', q:"You prefer to…", a:["think out loud and talk through ideas","think things through before speaking"]},
-  {dim:'SN', q:"You trust more…", a:["concrete facts and past experiences","gut feelings and future possibilities"]},
-  {dim:'SN', q:"You'd rather work on…", a:["realistic, practical projects","creative, imaginative projects"]},
-  {dim:'SN', q:"When learning something new, you prefer…", a:["step-by-step instructions","understanding the big picture first"]},
-  {dim:'TF', q:"When making decisions, you rely more on…", a:["logic and objective analysis","your feelings and how people are affected"]},
-  {dim:'TF', q:"You find it more natural to…", a:["point out flaws in someone's reasoning","be supportive and avoid conflict"]},
-  {dim:'TF', q:"People would describe you as more…", a:["rational and fair","warm and compassionate"]},
-  {dim:'JP', q:"Your workspace or room is usually…", a:["organized with a clear system","more spontaneous and flexible"]},
-  {dim:'JP', q:"You prefer…", a:["having things decided and planned ahead","keeping options open and being flexible"]},
-  {dim:'JP', q:"Deadlines feel…", a:["important — you like finishing early","like a guideline — you often work best last minute"]}
+const HOBBIES=["Gaming","Music","Writing","Photography","Art & design","Cooking","Fitness","Travel","Reading","Coding","Film & TV","Sports","Dance","Hiking & nature","Volunteering","Fashion","Podcasts","Robotics","Investing","Woodworking","Video editing","Board games","Languages","3D printing","Makeup & beauty","Content creation","Anime","Psychology","Entrepreneurship","Graphic design"];
+const VALUES=["Helping people","Creative freedom","Solving problems","Financial security","Being a leader","Work-life balance","Building new things","Always learning","Making an impact","Working independently","Teamwork","Being recognized","Variety every day","Job stability","Starting something","Hands-on work","Working remotely","Mentoring others"];
+const STRENGTHS=["Analytical thinking","Creativity","Communication","Empathy","Leadership","Technical skills","Attention to detail","Adaptability","Research","Teamwork","Persuasion","Organization","Critical thinking","Teaching others","Risk-taking","Big-picture thinking","Fast learner","Storytelling"];
+const MBTI_QS=[
+  {dim:'EI',q:"At a party, you tend to…",a:["talk to many people, including strangers","stick to a few people you know well"]},
+  {dim:'EI',q:"After a long social day, you feel…",a:["energized and want to keep going","drained and need alone time to recharge"]},
+  {dim:'EI',q:"You prefer to…",a:["think out loud and talk through ideas","think things through before speaking"]},
+  {dim:'SN',q:"You trust more…",a:["concrete facts and past experiences","gut feelings and future possibilities"]},
+  {dim:'SN',q:"You'd rather work on…",a:["realistic, practical projects","creative, imaginative projects"]},
+  {dim:'SN',q:"When learning something new, you prefer…",a:["step-by-step instructions","understanding the big picture first"]},
+  {dim:'TF',q:"When making decisions, you rely more on…",a:["logic and objective analysis","your feelings and how people are affected"]},
+  {dim:'TF',q:"You find it more natural to…",a:["point out flaws in someone's reasoning","be supportive and avoid conflict"]},
+  {dim:'TF',q:"People would describe you as more…",a:["rational and fair","warm and compassionate"]},
+  {dim:'JP',q:"Your workspace or room is usually…",a:["organized with a clear system","more spontaneous and flexible"]},
+  {dim:'JP',q:"You prefer…",a:["having things decided and planned ahead","keeping options open and being flexible"]},
+  {dim:'JP',q:"Deadlines feel…",a:["important — you like finishing early","like a guideline — you often work best last minute"]}
 ];
-
-// Enneagram — 9 questions, one per type, pick the most like you
-const ENN_QS = [
-  {type:1, q:"Which statement feels most like you?", opts:["I have strong principles and always try to do what's right","I find it hard to rest if things aren't done correctly","I notice flaws that others miss and feel compelled to fix them"]},
-  {type:2, q:"Which statement feels most like you?", opts:["I genuinely love helping people and making them feel cared for","I have a hard time asking for help myself","People often come to me when they need support"]},
-  {type:3, q:"Which statement feels most like you?", opts:["I'm driven to succeed and reach my goals","I care a lot about how others see me","I adapt easily to what's needed to get the job done"]},
-  {type:4, q:"Which statement feels most like you?", opts:["I feel like I'm different from most people","I'm deeply creative and in touch with my emotions","I long for things that feel missing from my life"]},
-  {type:5, q:"Which statement feels most like you?", opts:["I love learning and figuring out how things work","I need a lot of alone time to feel okay","I prefer observing to participating"]},
-  {type:6, q:"Which statement feels most like you?", opts:["I think about what could go wrong so I'm prepared","I value loyalty and reliability above most things","I often second-guess my own decisions"]},
-  {type:7, q:"Which statement feels most like you?", opts:["I'm always excited about new ideas and experiences","I avoid boredom and routine at all costs","I'm naturally optimistic and love having options"]},
-  {type:8, q:"Which statement feels most like you?", opts:["I don't back down from a challenge","I like being in control of my own life and decisions","I protect the people I care about fiercely"]},
-  {type:9, q:"Which statement feels most like you?", opts:["I naturally see all sides of an argument","I hate conflict and go out of my way to avoid it","I feel most at peace when everyone around me is okay"]}
+const ENN_QS=[
+  {type:1,q:"Which feels most like you?",opts:["I have strong principles and always try to do what's right","I find it hard to rest if things aren't done correctly","I notice flaws others miss and feel compelled to fix them"]},
+  {type:2,q:"Which feels most like you?",opts:["I genuinely love helping people and making them feel cared for","I have a hard time asking for help myself","People often come to me when they need support"]},
+  {type:3,q:"Which feels most like you?",opts:["I'm driven to succeed and reach my goals","I care a lot about how others see me","I adapt easily to what's needed to get the job done"]},
+  {type:4,q:"Which feels most like you?",opts:["I feel like I'm different from most people","I'm deeply creative and in touch with my emotions","I long for things that feel missing from my life"]},
+  {type:5,q:"Which feels most like you?",opts:["I love learning and figuring out how things work","I need a lot of alone time to feel okay","I prefer observing to participating"]},
+  {type:6,q:"Which feels most like you?",opts:["I think about what could go wrong so I'm prepared","I value loyalty and reliability above most things","I often second-guess my own decisions"]},
+  {type:7,q:"Which feels most like you?",opts:["I'm always excited about new ideas and experiences","I avoid boredom and routine at all costs","I'm naturally optimistic and love having options"]},
+  {type:8,q:"Which feels most like you?",opts:["I don't back down from a challenge","I like being in control of my own life","I protect the people I care about fiercely"]},
+  {type:9,q:"Which feels most like you?",opts:["I naturally see all sides of an argument","I hate conflict and go out of my way to avoid it","I feel most at peace when everyone around me is okay"]}
 ];
+const ENN_NAMES=["","The Perfectionist","The Helper","The Achiever","The Individualist","The Investigator","The Loyalist","The Enthusiast","The Challenger","The Peacemaker"];
+const MBTI_DESC={INTJ:"strategic mastermind",INTP:"logical analyzer",ENTJ:"born leader",ENTP:"idea machine",INFJ:"quiet visionary",INFP:"deep feeler",ENFJ:"natural mentor",ENFP:"hype person",ISTJ:"dependable planner",ISFJ:"caring protector",ESTJ:"organized director",ESFJ:"everyone's support",ISTP:"cool under pressure",ISFP:"gentle creator",ESTP:"bold action-taker",ESFP:"living out loud"};
 
-const ENN_NAMES = ["","The Perfectionist","The Helper","The Achiever","The Individualist","The Investigator","The Loyalist","The Enthusiast","The Challenger","The Peacemaker"];
-const MBTI_DESCRIPTIONS = {
-  INTJ:"strategic mastermind",INTP:"logical analyzer",ENTJ:"born leader",ENTP:"idea machine",
-  INFJ:"quiet visionary",INFP:"deep feeler",ENFJ:"natural mentor",ENFP:"hype person",
-  ISTJ:"dependable planner",ISFJ:"caring protector",ESTJ:"organized director",ESFJ:"everyone's support",
-  ISTP:"cool under pressure",ISFP:"gentle creator",ESTP:"bold action-taker",ESFP:"living out loud"
-};
+let sel={hobbies:new Set(),values:new Set(),strengths:new Set(),mbti:null,enneagram:null};
+let savedProfile=null;
+let freeResults=[];
+let mbtiAnswers={},mbtiQIdx=0,ennAnswers=[],ennQIdx=0;
+const ennScores={};
+let mbtiMode='test',ennMode='test';
 
-// ── State ─────────────────────────────────────────────
-let sel = {hobbies:new Set(), values:new Set(), strengths:new Set(), mbti:null, enneagram:null};
-let freeResults = [];
-let mbtiAnswers = {}; // dim -> 0 (first opt = E/S/T/J) or 1 (second = I/N/F/P)
-let mbtiQIndex = 0;
-let ennAnswers = []; // array of selected type scores
-let ennQIndex = 0;
-let mbtiMode = 'test';
-let ennMode = 'test';
-
-// ── Helpers ───────────────────────────────────────────
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 function $(id){return document.getElementById(id);}
+function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0);}
+function startQuiz(){showPg('pg-quiz');qgo(1);}
 
-function makeTagGrid(cid, items, set, max){
-  const el=$(cid); el.innerHTML='';
+function makeTagGrid(cid,items,set,max){
+  const el=$(cid);el.innerHTML='';
   items.forEach(item=>{
-    const t=document.createElement('div'); t.className='tag'; t.textContent=item;
-    t.onclick=()=>{
-      if(set.has(item)){set.delete(item);t.classList.remove('sel');}
-      else if(!max||set.size<max){set.add(item);t.classList.add('sel');}
-    };
+    const t=document.createElement('div');t.className='tag';t.textContent=item;
+    t.onclick=()=>{if(set.has(item)){set.delete(item);t.classList.remove('sel');}else if(!max||set.size<max){set.add(item);t.classList.add('sel');}};
     el.appendChild(t);
   });
 }
 function makeMBTIGrid(){
-  const el=$('mbti-grid'); el.innerHTML='';
-  Object.entries(MBTI_DESCRIPTIONS).forEach(([type,desc])=>{
-    const c=document.createElement('div'); c.className='mc';
+  const el=$('mbti-grid');el.innerHTML='';
+  Object.entries(MBTI_DESC).forEach(([type,desc])=>{
+    const c=document.createElement('div');c.className='mc';
     c.innerHTML=`<div class="mt">${type}</div><div class="md">${desc}</div>`;
     c.onclick=()=>{document.querySelectorAll('.mc').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');sel.mbti=type;};
     el.appendChild(c);
   });
 }
 function makeEnnGrid(){
-  const el=$('enneagram-grid'); el.innerHTML='';
+  const el=$('enneagram-grid');el.innerHTML='';
   for(let i=1;i<=9;i++){
-    const c=document.createElement('div'); c.className='ec';
+    const c=document.createElement('div');c.className='ec';
     c.innerHTML=`<div class="en">${i}</div><div class="et">${ENN_NAMES[i]}</div>`;
     c.onclick=()=>{document.querySelectorAll('.ec').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');sel.enneagram=i+' — '+ENN_NAMES[i];};
     el.appendChild(c);
   }
 }
+makeTagGrid('hobby-tags',HOBBIES,sel.hobbies,0);
+makeTagGrid('strength-tags',STRENGTHS,sel.strengths,5);
+makeTagGrid('value-tags',VALUES,sel.values,6);
+makeMBTIGrid();makeEnnGrid();
 
-makeTagGrid('hobby-tags', HOBBIES, sel.hobbies, 0);
-makeTagGrid('strength-tags', STRENGTHS, sel.strengths, 5);
-makeTagGrid('value-tags', VALUES, sel.values, 6);
-makeMBTIGrid();
-makeEnnGrid();
-
-// ── MBTI Test Logic ───────────────────────────────────
 function switchMBTIMode(mode){
-  mbtiMode = mode;
-  $('mbti-test-section').style.display = mode==='test'?'block':'none';
-  $('mbti-know-section').style.display = mode==='know'?'block':'none';
-  $('mbti-test-btn').classList.toggle('active', mode==='test');
-  $('mbti-know-btn').classList.toggle('active', mode==='know');
+  mbtiMode=mode;
+  $('mbti-test-section').style.display=mode==='test'?'block':'none';
+  $('mbti-know-section').style.display=mode==='know'?'block':'none';
+  $('mbti-test-btn').classList.toggle('active',mode==='test');
+  $('mbti-know-btn').classList.toggle('active',mode==='know');
 }
 function renderMBTIQ(){
-  const q = MBTI_QS[mbtiQIndex];
-  $('mbti-q-progress').textContent = `question ${mbtiQIndex+1} of ${MBTI_QS.length}`;
-  $('mbti-next-btn').textContent = mbtiQIndex < MBTI_QS.length-1 ? 'next question' : 'see my type';
-  $('mbti-questions').innerHTML = `
-    <div class="quiz-q">
-      <div class="quiz-q-text">${q.q}</div>
-      <div class="quiz-options">
-        ${q.a.map((opt,i)=>`<div class="quiz-opt" id="mbti-opt-${i}" onclick="selectMBTIOpt(${i})">${opt}</div>`).join('')}
-      </div>
-    </div>`;
-  if(mbtiAnswers[mbtiQIndex] !== undefined){
-    $(`mbti-opt-${mbtiAnswers[mbtiQIndex]}`).classList.add('sel');
-  }
+  const q=MBTI_QS[mbtiQIdx];
+  $('mbti-q-progress').textContent=`question ${mbtiQIdx+1} of ${MBTI_QS.length}`;
+  const nextBtn=$('mbti-next-btn');
+  nextBtn.textContent=mbtiQIdx<MBTI_QS.length-1?'next question':'see my type';
+  nextBtn.onclick=nextMBTIQ;
+  $('mbti-questions').innerHTML=`<div class="quiz-q"><div class="quiz-q-text">${q.q}</div><div class="quiz-options">${q.a.map((opt,i)=>`<div class="quiz-opt" id="mbti-opt-${i}" onclick="selectMBTIOpt(${i})">${opt}</div>`).join('')}</div></div>`;
+  if(mbtiAnswers[mbtiQIdx]!==undefined) $(`mbti-opt-${mbtiAnswers[mbtiQIdx]}`).classList.add('sel');
 }
-function selectMBTIOpt(i){
-  mbtiAnswers[mbtiQIndex] = i;
-  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('sel'));
-  $(`mbti-opt-${i}`).classList.add('sel');
-}
+function selectMBTIOpt(i){mbtiAnswers[mbtiQIdx]=i;document.querySelectorAll('#mbti-questions .quiz-opt').forEach(o=>o.classList.remove('sel'));$(`mbti-opt-${i}`).classList.add('sel');}
 function nextMBTIQ(){
-  if(mbtiAnswers[mbtiQIndex]===undefined){alert('please pick an answer first!');return;}
-  if(mbtiQIndex < MBTI_QS.length-1){
-    mbtiQIndex++;
-    renderMBTIQ();
-  } else {
-    // Calculate MBTI
-    const scores = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
-    MBTI_QS.forEach((q,i)=>{
-      const ans = mbtiAnswers[i];
-      if(q.dim==='EI'){ans===0?scores.E++:scores.I++;}
-      else if(q.dim==='SN'){ans===0?scores.S++:scores.N++;}
-      else if(q.dim==='TF'){ans===0?scores.T++:scores.F++;}
-      else if(q.dim==='JP'){ans===0?scores.J++:scores.P++;}
-    });
-    const type = (scores.E>=scores.I?'E':'I')+(scores.S>=scores.N?'S':'N')+(scores.T>=scores.F?'T':'F')+(scores.J>=scores.P?'J':'P');
-    sel.mbti = type;
-    // Show result reveal then go to step 4
-    $('mbti-questions').innerHTML = `
-      <div class="result-reveal">
-        <div class="result-reveal-label">your MBTI type is</div>
-        <div class="result-reveal-type">${type}</div>
-        <div class="result-reveal-name">${MBTI_DESCRIPTIONS[type]||''}</div>
-        <div class="result-reveal-desc">Based on your answers, this is your personality type. We'll use this to find your best career matches.</div>
-      </div>`;
-    $('mbti-next-btn').textContent = 'continue to enneagram';
-    $('mbti-next-btn').onclick = ()=>qgo(4);
-    $('mbti-q-progress').textContent = 'type calculated!';
+  if(mbtiAnswers[mbtiQIdx]===undefined){alert('please pick an answer first!');return;}
+  if(mbtiQIdx<MBTI_QS.length-1){mbtiQIdx++;renderMBTIQ();}
+  else{
+    const scores={E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+    MBTI_QS.forEach((q,i)=>{const a=mbtiAnswers[i];if(q.dim==='EI'){a===0?scores.E++:scores.I++;}else if(q.dim==='SN'){a===0?scores.S++:scores.N++;}else if(q.dim==='TF'){a===0?scores.T++:scores.F++;}else if(q.dim==='JP'){a===0?scores.J++:scores.P++;}});
+    sel.mbti=(scores.E>=scores.I?'E':'I')+(scores.S>=scores.N?'S':'N')+(scores.T>=scores.F?'T':'F')+(scores.J>=scores.P?'J':'P');
+    $('mbti-questions').innerHTML=`<div class="result-reveal"><div class="result-reveal-label">your MBTI type is</div><div class="result-reveal-type">${sel.mbti}</div><div class="result-reveal-name">${MBTI_DESC[sel.mbti]||''}</div><div class="result-reveal-desc">Based on your answers, this is your personality type. We'll use this to find your best career matches.</div></div>`;
+    $('mbti-q-progress').textContent='type calculated!';
+    const nb=$('mbti-next-btn');nb.textContent='continue to enneagram';nb.onclick=()=>qgo(4);
   }
 }
-
-// ── Enneagram Test Logic ──────────────────────────────
-const ennScores = {};
 function switchEnnMode(mode){
-  ennMode = mode;
-  $('enn-test-section').style.display = mode==='test'?'block':'none';
-  $('enn-know-section').style.display = mode==='know'?'block':'none';
-  $('enn-test-btn').classList.toggle('active', mode==='test');
-  $('enn-know-btn').classList.toggle('active', mode==='know');
+  ennMode=mode;
+  $('enn-test-section').style.display=mode==='test'?'block':'none';
+  $('enn-know-section').style.display=mode==='know'?'block':'none';
+  $('enn-test-btn').classList.toggle('active',mode==='test');
+  $('enn-know-btn').classList.toggle('active',mode==='know');
 }
 function renderEnnQ(){
-  const q = ENN_QS[ennQIndex];
-  $('enn-q-progress').textContent = `question ${ennQIndex+1} of ${ENN_QS.length}`;
-  $('enn-next-btn').textContent = ennQIndex < ENN_QS.length-1 ? 'next question' : 'see my type';
-  $('enn-questions').innerHTML = `
-    <div class="quiz-q">
-      <div class="quiz-q-text">${q.q}</div>
-      <div class="quiz-options">
-        ${q.opts.map((opt,i)=>`<div class="quiz-opt" id="enn-opt-${i}" onclick="selectEnnOpt(${i},${q.type})">${opt}</div>`).join('')}
-      </div>
-    </div>`;
-  if(ennAnswers[ennQIndex] !== undefined){
-    $(`enn-opt-${ennAnswers[ennQIndex]}`).classList.add('sel');
-  }
+  const q=ENN_QS[ennQIdx];
+  $('enn-q-progress').textContent=`question ${ennQIdx+1} of ${ENN_QS.length}`;
+  const nextBtn=$('enn-next-btn');
+  nextBtn.textContent=ennQIdx<ENN_QS.length-1?'next question':'see my type';
+  nextBtn.onclick=nextEnnQ;
+  $('enn-questions').innerHTML=`<div class="quiz-q"><div class="quiz-q-text">${q.q}</div><div class="quiz-options">${q.opts.map((opt,i)=>`<div class="quiz-opt" id="enn-opt-${i}" onclick="selectEnnOpt(${i},${q.type})">${opt}</div>`).join('')}</div></div>`;
+  if(ennAnswers[ennQIdx]!==undefined) $(`enn-opt-${ennAnswers[ennQIdx]}`).classList.add('sel');
 }
-function selectEnnOpt(i, type){
-  ennAnswers[ennQIndex] = i;
-  if(!ennScores[type]) ennScores[type]=0;
-  ennScores[type]++;
-  document.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('sel'));
-  $(`enn-opt-${i}`).classList.add('sel');
-}
+function selectEnnOpt(i,type){ennAnswers[ennQIdx]=i;ennScores[type]=(ennScores[type]||0)+1;document.querySelectorAll('#enn-questions .quiz-opt').forEach(o=>o.classList.remove('sel'));$(`enn-opt-${i}`).classList.add('sel');}
 function nextEnnQ(){
-  if(ennAnswers[ennQIndex]===undefined){alert('please pick an answer first!');return;}
-  if(ennQIndex < ENN_QS.length-1){
-    ennQIndex++;
-    renderEnnQ();
-  } else {
-    // Find highest scoring type
-    let best=1, bestScore=0;
-    for(let t=1;t<=9;t++){
-      if((ennScores[t]||0)>bestScore){bestScore=ennScores[t];best=t;}
-    }
-    sel.enneagram = best+' — '+ENN_NAMES[best];
-    $('enn-questions').innerHTML = `
-      <div class="result-reveal">
-        <div class="result-reveal-label">your enneagram type is</div>
-        <div class="result-reveal-type">Type ${best}</div>
-        <div class="result-reveal-name">${ENN_NAMES[best]}</div>
-        <div class="result-reveal-desc">Based on your answers, this type reflects your core motivations and fears. We'll combine this with your MBTI to find your best careers.</div>
-      </div>`;
-    $('enn-next-btn').textContent = 'continue';
-    $('enn-next-btn').onclick = ()=>qgo(5);
-    $('enn-q-progress').textContent = 'type calculated!';
+  if(ennAnswers[ennQIdx]===undefined){alert('please pick an answer first!');return;}
+  if(ennQIdx<ENN_QS.length-1){ennQIdx++;renderEnnQ();}
+  else{
+    let best=1,bestScore=0;
+    for(let t=1;t<=9;t++){if((ennScores[t]||0)>bestScore){bestScore=ennScores[t];best=t;}}
+    sel.enneagram=best+' — '+ENN_NAMES[best];
+    $('enn-questions').innerHTML=`<div class="result-reveal"><div class="result-reveal-label">your enneagram type is</div><div class="result-reveal-type">Type ${best}</div><div class="result-reveal-name">${ENN_NAMES[best]}</div><div class="result-reveal-desc">Based on your answers, this type reflects your core motivations. We'll combine this with your MBTI to find your best careers.</div></div>`;
+    $('enn-q-progress').textContent='type calculated!';
+    const nb=$('enn-next-btn');nb.textContent='continue';nb.onclick=()=>qgo(5);
   }
 }
 
-// ── Quiz Navigation ───────────────────────────────────
 function qgo(n){
-  for(let i=1;i<=5;i++){
-    $(('qs'+i)).style.display = i===n?'block':'none';
-    $('pb'+i).classList.toggle('done', i<=n);
-  }
-  if(n===3 && mbtiMode==='test'){ mbtiQIndex=0; renderMBTIQ(); }
-  if(n===4 && ennMode==='test'){ ennQIndex=0; renderEnnQ(); }
+  for(let i=1;i<=5;i++){$(('qs'+i)).style.display=i===n?'block':'none';$('pb'+i).classList.toggle('done',i<=n);}
+  if(n===3&&mbtiMode==='test'){mbtiQIdx=0;renderMBTIQ();}
+  if(n===4&&ennMode==='test'){ennQIdx=0;renderEnnQ();}
   window.scrollTo(0,0);
 }
 
 function resetAll(){
   sel={hobbies:new Set(),values:new Set(),strengths:new Set(),mbti:null,enneagram:null};
-  freeResults=[];
-  mbtiAnswers={}; mbtiQIndex=0;
+  savedProfile=null;freeResults=[];
+  Object.assign(mbtiAnswers,{});mbtiQIdx=0;
   Object.keys(ennScores).forEach(k=>delete ennScores[k]);
-  ennAnswers=[]; ennQIndex=0;
+  ennAnswers=[];ennQIdx=0;
   document.querySelectorAll('.tag.sel').forEach(t=>t.classList.remove('sel'));
   document.querySelectorAll('.mc.sel,.ec.sel').forEach(c=>c.classList.remove('sel'));
   $('custom-hobbies').value='';
-  switchMBTIMode('test'); switchEnnMode('test');
-  // Reset MBTI next btn
-  $('mbti-next-btn').onclick = ()=>nextMBTIQ();
-  $('enn-next-btn').onclick = ()=>nextEnnQ();
+  switchMBTIMode('test');switchEnnMode('test');
   qgo(1);
-}
-function goStripe(){
-  window.location.href = 'https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00';
 }
 
 function typeBadgesHTML(){
   let b='';
-  if(sel.mbti) b+=`<span class="type-badge">${sel.mbti}</span>`;
-  if(sel.enneagram) b+=`<span class="type-badge">type ${sel.enneagram.split(' ')[0]}</span>`;
-  return b ? `<div style="margin-bottom:12px">${b}</div>` : '';
+  if(sel.mbti)b+=`<span class="type-badge">${sel.mbti}</span>`;
+  if(sel.enneagram)b+=`<span class="type-badge">type ${sel.enneagram.split(' ')[0]}</span>`;
+  return b?`<div style="margin-bottom:12px">${b}</div>`:'';
 }
 
-// ── AI Calls ──────────────────────────────────────────
-function buildPrompt(mode){
+function buildProfile(){
   const h=[...sel.hobbies];
   const ch=$('custom-hobbies').value.trim();
   if(ch)h.push(ch);
-  const profile=`hobbies: ${h.join(', ')||'not specified'}, strengths: ${[...sel.strengths].join(', ')||'not specified'}, values: ${[...sel.values].join(', ')||'not specified'}, MBTI: ${sel.mbti||'not specified'}, enneagram: ${sel.enneagram||'not specified'}`;
-  if(mode==='free'){
-    return `You are a career advisor for high school and college students. Based on this profile, generate exactly 5 ranked career matches. Use casual, encouraging language like a knowledgeable friend. Be specific to their profile — reference their actual hobbies, MBTI, and enneagram.
-Profile: ${profile}
-Respond ONLY with a valid JSON array, no markdown, no extra text. Each object: {"title":"career title","shortWhy":"one casual sentence referencing their specific profile","tags":["tag1","tag2","tag3"]}`;
-  } else {
-    return `You are a career advisor for high school and college students. Give a full premium career reading for these 5 careers: ${freeResults.map(r=>r.title).join(', ')}.
-Profile: ${profile}
-Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career title","deepWhy":"3 casual sentences referencing their MBTI, enneagram, hobbies, and values — make it feel very personal","salary":"realistic range e.g. $52,000 – $115,000/yr","outlook":"1 sentence on job market right now","howToBreakIn":"2 practical sentences for a student with no experience","actionPlan":"- Day 1–30: specific action\\n- Day 31–60: specific action\\n- Day 61–90: specific action"}`;
-  }
+  return `hobbies: ${h.join(', ')||'not specified'}, strengths: ${[...sel.strengths].join(', ')||'not specified'}, values: ${[...sel.values].join(', ')||'not specified'}, MBTI: ${sel.mbti||'not specified'}, enneagram: ${sel.enneagram||'not specified'}`;
 }
 
 async function callClaude(prompt){
-  const res = await fetch("/api/generate",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:2000,messages:[{role:"user",content:prompt}]})
-  });
-  const data = await res.json();
-  const raw = data.content.map(b=>b.text||'').join('');
+  const res=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:prompt}]})});
+  const data=await res.json();
+  const raw=data.content.map(b=>b.text||'').join('');
   return JSON.parse(raw.replace(/```json|```/g,'').trim());
 }
 
 async function generateResults(){
   $('gen-btn').disabled=true;
+  savedProfile=buildProfile();
   showPg('pg-results');
   $('res-loading').style.display='block';
   $('res-content').style.display='none';
   try{
-    freeResults = await callClaude(buildPrompt('free'));
+    const prompt=`You are a career advisor for high school and college students. Based on this profile, generate exactly 5 ranked career matches. Use casual, encouraging language. Be specific to their profile.
+Profile: ${savedProfile}
+Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career title","shortWhy":"one casual sentence referencing their specific profile","tags":["tag1","tag2","tag3"]}`;
+    freeResults=await callClaude(prompt);
     $('res-loading').style.display='none';
     $('res-content').style.display='block';
-    $('type-badges').innerHTML = typeBadgesHTML();
-    const parts=[];
-    if(sel.mbti) parts.push(sel.mbti);
-    if(sel.enneagram) parts.push('type '+sel.enneagram.split(' ')[0]);
-    $('res-sub').textContent = parts.length ? `based on your ${parts.join(' + ')} profile` : 'based on your hobbies, strengths, and values';
-    $('cards-free').innerHTML = freeResults.map((c,i)=>`
-      <div class="result-card">
-        <div class="result-rank">#${i+1} match</div>
-        <div class="result-title">${c.title}</div>
-        <div class="result-vibe">${c.shortWhy}</div>
-        <div class="result-tags">${(c.tags||[]).map(t=>`<span class="result-tag">${t}</span>`).join('')}</div>
-      </div>`).join('');
-    $('paywall-section').innerHTML = `
-      <div class="paywall-box">
-        <div class="pw-title">want the full deep-dive?</div>
-        <div class="pw-sub">unlock salary ranges, how to break into each career, and a personal 90-day action plan — all tailored to your exact profile.</div>
-        <div class="pw-features">
-          <div class="pw-feature"><span class="dot y">✓</span>deep breakdown for all 5 careers</div>
-          <div class="pw-feature"><span class="dot y">✓</span>real salary ranges & job outlook</div>
-          <div class="pw-feature"><span class="dot y">✓</span>how to actually get hired with no experience</div>
-          <div class="pw-feature"><span class="dot y">✓</span>your personal 90-day action plan</div>
-        </div>
-        <button class="btn btn-primary" onclick="showPg('pg-payment')" style="width:100%;font-size:15px;padding:12px;margin-top:8px">unlock full reading — $9.99</button>
-        <div style="font-size:12px;color:#bbb;margin-top:8px">one-time · no subscription · no catch</div>
-      </div>`;
-    const top = freeResults[0]?.title||'my top career match';
-    $('share-section').innerHTML = `
-      <div class="share-card">
-        <div class="share-text">share your result — <strong>"I got ${top}"</strong></div>
-        <button class="btn" style="font-size:12px;padding:6px 14px;white-space:nowrap" onclick="navigator.clipboard.writeText('just took the clairo career quiz and got ${top} as my #1 match 👀 try it free → clairo.vercel.app').then(()=>alert('copied! paste it in your story'))">copy to share</button>
-      </div>`;
-  } catch(e){
-    $('res-loading').innerHTML=`<div style="text-align:center;color:#D4537E;font-size:15px">something went wrong — <span style="cursor:pointer;text-decoration:underline" onclick="showPg('pg-quiz')">try again?</span></div>`;
+    $('type-badges').innerHTML=typeBadgesHTML();
+    const parts=[];if(sel.mbti)parts.push(sel.mbti);if(sel.enneagram)parts.push('type '+sel.enneagram.split(' ')[0]);
+    $('res-sub').textContent=parts.length?`based on your ${parts.join(' + ')} profile`:'based on your hobbies, strengths, and values';
+    $('cards-free').innerHTML=freeResults.map((c,i)=>`<div class="result-card"><div class="result-rank">#${i+1} match</div><div class="result-title">${c.title}</div><div class="result-vibe">${c.shortWhy}</div><div class="result-tags">${(c.tags||[]).map(t=>`<span class="result-tag">${t}</span>`).join('')}</div></div>`).join('');
+    $('paywall-section').innerHTML=`<div class="paywall-box"><div class="pw-title">want the full deep-dive?</div><div class="pw-sub">unlock salary ranges, how to break into each career, and a personal 90-day action plan tailored to your exact profile.</div><div class="pw-features"><div class="pw-feature"><span class="dot y">✓</span>deep breakdown for all 5 careers</div><div class="pw-feature"><span class="dot y">✓</span>real salary ranges & job outlook</div><div class="pw-feature"><span class="dot y">✓</span>how to actually get hired with no experience</div><div class="pw-feature"><span class="dot y">✓</span>your personal 90-day action plan</div></div><button class="btn btn-primary" onclick="showPg('pg-payment')" style="width:100%;font-size:15px;padding:12px;margin-top:8px">unlock full reading — $9.99</button><div style="font-size:12px;color:#bbb;margin-top:8px">one-time · no subscription · no catch</div></div>`;
+    const top=freeResults[0]?.title||'my top career match';
+    $('share-section').innerHTML=`<div class="share-card"><div class="share-text">share your result — <strong>"I got ${top}"</strong></div><button class="btn" style="font-size:12px;padding:6px 14px;white-space:nowrap" onclick="navigator.clipboard.writeText('just took the clairo career quiz and got ${top} as my #1 match try it free clairo-one-rouge.vercel.app').then(()=>alert('copied! paste it in your story'))">copy to share</button></div>`;
+  }catch(e){
+    $('res-loading').innerHTML=`<div style="text-align:center;color:#D4537E;font-size:15px">something went wrong — <span style="cursor:pointer;text-decoration:underline" onclick="startQuiz()">try again?</span></div>`;
   }
   $('gen-btn').disabled=false;
 }
 
 async function unlockPremium(){
   showPg('pg-premium');
-  $('premium-type-badges').innerHTML = typeBadgesHTML();
-  const parts=[];
-  if(sel.mbti) parts.push(sel.mbti);
-  if(sel.enneagram) parts.push('type '+sel.enneagram.split(' ')[0]);
-  $('premium-sub').textContent = parts.length ? `your ${parts.join(' + ')} full reading` : 'your personalized full reading';
+  $('premium-type-badges').innerHTML=typeBadgesHTML();
+  const parts=[];if(sel.mbti)parts.push(sel.mbti);if(sel.enneagram)parts.push('type '+sel.enneagram.split(' ')[0]);
+  $('premium-sub').textContent=parts.length?`your ${parts.join(' + ')} full reading`:'your personalized full reading';
   $('prem-loading').style.display='block';
   $('prem-cards').innerHTML='';
+  const profile=savedProfile||buildProfile();
+  const careers=freeResults.length?freeResults.map(r=>r.title).join(', '):'the best career matches for this profile';
   try{
-    const pr = await callClaude(buildPrompt('premium'));
+    const prompt=`You are a career advisor for high school and college students. Give a full premium career reading for these exact 5 careers: ${careers}.
+Profile: ${profile}
+Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career title","deepWhy":"3 casual sentences referencing their MBTI, enneagram, hobbies, and values — make it feel personal","salary":"realistic range e.g. $52,000 – $115,000/yr","outlook":"1 sentence on job market right now","howToBreakIn":"2 practical sentences for a student with no experience","actionPlan":"- Day 1–30: specific action\\n- Day 31–60: specific action\\n- Day 61–90: specific action"}`;
+    const pr=await callClaude(prompt);
     $('prem-loading').style.display='none';
-    $('prem-cards').innerHTML = pr.map((c,i)=>`
-      <div class="result-card">
-        <div class="result-rank">#${i+1} match</div>
-        <div class="result-title">${c.title}</div>
-        <div style="font-size:14px;color:#555;line-height:1.65;margin-bottom:14px">${c.deepWhy}</div>
-        <div class="meta-grid">
-          <div class="meta-box"><div class="meta-label">salary range</div><div class="meta-value">${c.salary}</div></div>
-          <div class="meta-box"><div class="meta-label">job outlook</div><div class="meta-body">${c.outlook}</div></div>
-        </div>
-        <div style="margin-bottom:12px">
-          <div class="section-head">how to get in</div>
-          <div style="font-size:14px;color:#555;line-height:1.6">${c.howToBreakIn}</div>
-        </div>
-        <div>
-          <div class="section-head">your 90-day plan</div>
-          <div style="font-size:13px;color:#555;line-height:2;white-space:pre-line">${c.actionPlan}</div>
-        </div>
-      </div>`).join('');
-  } catch(e){
+    $('prem-cards').innerHTML=pr.map((c,i)=>`<div class="result-card"><div class="result-rank">#${i+1} match</div><div class="result-title">${c.title}</div><div style="font-size:14px;color:#555;line-height:1.65;margin-bottom:14px">${c.deepWhy}</div><div class="meta-grid"><div class="meta-box"><div class="meta-label">salary range</div><div class="meta-value">${c.salary}</div></div><div class="meta-box"><div class="meta-label">job outlook</div><div class="meta-body">${c.outlook}</div></div></div><div style="margin-bottom:12px"><div class="section-head">how to get in</div><div style="font-size:14px;color:#555;line-height:1.6">${c.howToBreakIn}</div></div><div><div class="section-head">your 90-day plan</div><div style="font-size:13px;color:#555;line-height:2;white-space:pre-line">${c.actionPlan}</div></div></div>`).join('');
+  }catch(e){
     $('prem-loading').innerHTML=`<div style="text-align:center;color:#D4537E;">something went wrong — please refresh and try again.</div>`;
   }
 }
 
-if(window.location.search.includes('paid=true')){ unlockPremium(); }
+if(window.location.search.includes('paid=true')){
+  showPg('pg-premium');
+  $('prem-loading').style.display='block';
+  $('prem-cards').innerHTML='';
+  $('premium-sub').textContent='complete your quiz to generate your full reading';
+  $('prem-loading').innerHTML=`<div style="text-align:center;padding:2rem 0"><div style="font-size:18px;font-weight:700;color:#111;margin-bottom:12px">payment confirmed!</div><div style="font-size:14px;color:#777;margin-bottom:20px;line-height:1.6">take the quiz below and your full reading will generate automatically at the end — no paywall.</div><button class="btn btn-primary" style="font-size:15px;padding:12px 28px" onclick="isPaid=true;startQuiz()">start my full reading</button></div>`;
+}
+
+let isPaid=false;
+const _origGenerate=generateResults;
+generateResults=async function(){
+  if(isPaid){
+    $('gen-btn').disabled=true;
+    savedProfile=buildProfile();
+    await unlockPremium();
+    isPaid=false;
+  } else {
+    await _origGenerate();
+  }
+};
 </script>
 </body>
 </html>
