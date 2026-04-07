@@ -398,7 +398,7 @@ footer a{color:#D4537E;text-decoration:none}
 </div>
 
 <script>
-const STRIPE_LINK = 'https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00';
+const STRIPE_LINK = 'YOUR_STRIPE_LINK_HERE';
 
 // ── Data ──────────────────────────────────────────────
 const HOBBIES = ["Gaming","Music","Writing","Photography","Art & design","Cooking","Fitness","Travel","Reading","Coding","Film & TV","Sports","Dance","Hiking & nature","Volunteering","Fashion","Podcasts","Robotics","Investing","Woodworking","Video editing","Board games","Languages","3D printing","Makeup & beauty","Content creation","Anime","Psychology","Entrepreneurship","Graphic design"];
@@ -664,7 +664,7 @@ Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career
 }
 
 async function callClaude(prompt){
-  const res = await fetch("https://api.anthropic.com/v1/messages",{
+  const res = await fetch("/api/generate",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:2000,messages:[{role:"user",content:prompt}]})
