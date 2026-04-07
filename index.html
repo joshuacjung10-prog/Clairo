@@ -613,11 +613,13 @@ Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career
 }
 
 if(window.location.search.includes('paid=true')){
+  isPaid=true;
   showPg('pg-premium');
   $('prem-loading').style.display='block';
   $('prem-cards').innerHTML='';
   $('premium-sub').textContent='complete your quiz to generate your full reading';
-  $('prem-loading').innerHTML=`<div style="text-align:center;padding:2rem 0"><div style="font-size:18px;font-weight:700;color:#111;margin-bottom:12px">payment confirmed!</div><div style="font-size:14px;color:#777;margin-bottom:20px;line-height:1.6">take the quiz below and your full reading will generate automatically at the end — no paywall.</div><button class="btn btn-primary" style="font-size:15px;padding:12px 28px" onclick="isPaid=true;showPg('pg-quiz');qgo(1)">start my full reading</button></div>`;
+  $('prem-loading').innerHTML='<div style="text-align:center;padding:2rem 0"><div style="font-size:18px;font-weight:700;color:#111;margin-bottom:12px">payment confirmed!</div><div style="font-size:14px;color:#777;margin-bottom:20px;line-height:1.6">take the quiz below and your full reading will generate automatically at the end.</div><button class="btn btn-primary" style="font-size:15px;padding:12px 28px" id="start-paid-btn">start my full reading</button></div>';
+  document.getElementById('start-paid-btn').onclick = function(){ showPg('pg-quiz'); qgo(1); };
 }
 </script>
 </body>
