@@ -633,10 +633,8 @@ function resetAll(){
   $('enn-next-btn').onclick = ()=>nextEnnQ();
   qgo(1);
 }
-const STRIPE_LINK = 'https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00';
 function goStripe(){
-  if(STRIPE_LINK==='YOUR_STRIPE_LINK_HERE'){alert('Payment coming soon!');return;}
-  window.location.href = STRIPE_LINK;
+  window.location.href = 'https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00';
 }
 
 function typeBadgesHTML(){
