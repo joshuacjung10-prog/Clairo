@@ -333,9 +333,11 @@ footer{text-align:center;padding:2rem 1rem;border-top:1px solid #f5f5f5;font-siz
     <div class="logo" onclick="showPg('pg-home')">clai<span>ro</span></div>
   </nav>
   <div style="max-width:500px;margin:0 auto;padding:4rem 1.5rem;text-align:center">
-    <div style="font-size:28px;font-weight:700;color:#111;margin-bottom:12px">complete your payment</div>
-    <div style="font-size:15px;color:#777;margin-bottom:2rem;line-height:1.6">stripe opened in a new tab. once you've paid, come back here and tap the button below.</div>
-    <button class="btn btn-primary" style="font-size:16px;padding:14px 32px;width:100%;margin-bottom:12px" onclick="unlockPremium()">i've paid — unlock my reading</button>
+    <div style="font-size:28px;font-weight:700;color:#111;margin-bottom:12px">payment confirmed!</div>
+    <div style="font-size:15px;color:#777;margin-bottom:2rem;line-height:1.6">enter the email you used on Stripe to unlock your full reading.</div>
+    <input type="email" id="verify-email" placeholder="your@email.com" style="width:100%;padding:12px;border:1px solid #e0e0e0;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:12px;text-align:center">
+    <button class="btn btn-primary" style="font-size:16px;padding:14px 32px;width:100%;margin-bottom:12px" onclick="verifyAndUnlock()">unlock my reading</button>
+    <div id="verify-error" style="font-size:13px;color:#D4537E;margin-bottom:8px;display:none">email not found — make sure you use the same email you paid with on Stripe.</div>
     <div style="font-size:13px;color:#bbb">didn't pay yet? <span style="color:#D4537E;cursor:pointer;text-decoration:underline" onclick="showPg('pg-payment')">go back</span></div>
   </div>
 </div>
@@ -604,6 +606,34 @@ async function generateResults(){
   }
   ge('gen-btn').disabled=false;
 }
+async function verifyAndUnlock(){
+  const email = document.getElementById('verify-email').value.trim();
+  if(!email){alert('please enter your email');return;}
+  const btn = document.querySelector('#pg-waitpay .btn-primary');
+  btn.textContent = 'checking...';
+  btn.disabled = true;
+  document.getElementById('verify-error').style.display = 'none';
+  try{
+    const res = await fetch('/api/verify', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({email: email})
+    });
+    const data = await res.json();
+    if(data.paid){
+      unlockPremium();
+    } else {
+      document.getElementById('verify-error').style.display = 'block';
+      btn.textContent = 'unlock my reading';
+      btn.disabled = false;
+    }
+  }catch(e){
+    alert('something went wrong — please try again');
+    btn.textContent = 'unlock my reading';
+    btn.disabled = false;
+  }
+}
+
 function openStripe(){
   window.open('https://buy.stripe.com/5kQ14mcD5buWdwe7XFfbq01','_blank');
   showPg('pg-waitpay');
