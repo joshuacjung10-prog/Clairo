@@ -385,6 +385,7 @@ footer a{color:#D4537E;text-decoration:none}
 </div>
 
 <script>
+let isPaid=false;
 const HOBBIES=["Gaming","Music","Writing","Photography","Art & design","Cooking","Fitness","Travel","Reading","Coding","Film & TV","Sports","Dance","Hiking & nature","Volunteering","Fashion","Podcasts","Robotics","Investing","Woodworking","Video editing","Board games","Languages","3D printing","Makeup & beauty","Content creation","Anime","Psychology","Entrepreneurship","Graphic design"];
 const VALUES=["Helping people","Creative freedom","Solving problems","Financial security","Being a leader","Work-life balance","Building new things","Always learning","Making an impact","Working independently","Teamwork","Being recognized","Variety every day","Job stability","Starting something","Hands-on work","Working remotely","Mentoring others"];
 const STRENGTHS=["Analytical thinking","Creativity","Communication","Empathy","Leadership","Technical skills","Attention to detail","Adaptability","Research","Teamwork","Persuasion","Organization","Critical thinking","Teaching others","Risk-taking","Big-picture thinking","Fast learner","Storytelling"];
@@ -557,8 +558,6 @@ async function callClaude(prompt){
   const raw=data.content.map(b=>b.text||'').join('');
   return JSON.parse(raw.replace(/```json|```/g,'').trim());
 }
-
-let isPaid=false;
 
 async function generateResults(){
   if(isPaid){
