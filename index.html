@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clairo — find the career you were built for</title>
 <meta name="description" content="Free AI-powered career quiz with built-in MBTI and enneagram tests. Get your top 5 career matches instantly.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8QVL5WT1L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8QVL5WT1L');
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#111;min-height:100vh}
@@ -194,7 +201,7 @@ footer a{color:#D4537E;text-decoration:none}
       </div>
     </div>
   </div>
-  <footer>clairo &nbsp;·&nbsp; <a href="mailto:hello@clairo.co">hello@clairo.co</a></footer>
+  <footer>clairo &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#ed8588818182ad8e818c849f82c38e82"><span class="__cf_email__" data-cfemail="5c34393030331c3f303d352e33723f33">[email&#160;protected]</span></a></footer>
 </div>
 
 <!-- PRICING -->
@@ -398,7 +405,7 @@ footer a{color:#D4537E;text-decoration:none}
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 let isPaid=false;
 const HOBBIES=["Gaming","Music","Writing","Photography","Art & design","Cooking","Fitness","Travel","Reading","Coding","Film & TV","Sports","Dance","Hiking & nature","Volunteering","Fashion","Podcasts","Robotics","Investing","Woodworking","Video editing","Board games","Languages","3D printing","Makeup & beauty","Content creation","Anime","Psychology","Entrepreneurship","Graphic design"];
 const VALUES=["Helping people","Creative freedom","Solving problems","Financial security","Being a leader","Work-life balance","Building new things","Always learning","Making an impact","Working independently","Teamwork","Being recognized","Variety every day","Job stability","Starting something","Hands-on work","Working remotely","Mentoring others"];
@@ -616,18 +623,4 @@ Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career
     $('prem-loading').style.display='none';
     $('prem-cards').innerHTML=pr.map((c,i)=>`<div class="result-card"><div class="result-rank">#${i+1} match</div><div class="result-title">${c.title}</div><div style="font-size:14px;color:#555;line-height:1.65;margin-bottom:14px">${c.deepWhy}</div><div class="meta-grid"><div class="meta-box"><div class="meta-label">salary range</div><div class="meta-value">${c.salary}</div></div><div class="meta-box"><div class="meta-label">job outlook</div><div class="meta-body">${c.outlook}</div></div></div><div style="margin-bottom:12px"><div class="section-head">how to get in</div><div style="font-size:14px;color:#555;line-height:1.6">${c.howToBreakIn}</div></div><div><div class="section-head">your 90-day plan</div><div style="font-size:13px;color:#555;line-height:2;white-space:pre-line">${c.actionPlan}</div></div></div>`).join('');
   }catch(e){
-    $('prem-loading').innerHTML=`<div style="text-align:center;color:#D4537E;">something went wrong — please refresh and try again.</div>`;
-  }
-}
-
-function openStripe(){
-  window.open('https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00','_blank');
-  showPg('pg-waitpay');
-}
-
-function checkPaid(){
-  unlockPremium();
-}
-</script>
-</body>
-</html>
+    $('prem-loading').innerHTML=`<div style="text-align:center;color:#D4537E;">something went wrong — ple
