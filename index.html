@@ -617,10 +617,9 @@ let isPaid=false;
 const _origGenerate=generateResults;
 generateResults=async function(){
   if(isPaid){
-    $('gen-btn').disabled=true;
-    savedProfile=buildProfile();
-    await unlockPremium();
     isPaid=false;
+    savedProfile=buildProfile();
+    unlockPremium();
   } else {
     await _origGenerate();
   }
