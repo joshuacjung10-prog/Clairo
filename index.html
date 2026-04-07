@@ -341,6 +341,20 @@ footer a{color:#D4537E;text-decoration:none}
   </div>
 </div>
 
+
+<!-- WAITING FOR PAYMENT -->
+<div class="page" id="pg-waitpay">
+  <nav class="nav">
+    <div class="logo" onclick="showPg('pg-home');resetAll()">clai<span>ro</span></div>
+  </nav>
+  <div style="max-width:500px;margin:0 auto;padding:4rem 1.5rem;text-align:center">
+    <div style="font-size:28px;font-weight:700;color:#111;margin-bottom:12px">complete your payment</div>
+    <div style="font-size:15px;color:#777;margin-bottom:2rem;line-height:1.6">stripe opened in a new tab. once you've paid, come back here and tap the button below to unlock your full reading.</div>
+    <button class="btn btn-primary" style="font-size:16px;padding:14px 32px;width:100%;margin-bottom:12px" onclick="checkPaid()">i've paid — unlock my reading</button>
+    <div style="font-size:13px;color:#bbb">didn't pay yet? <span style="color:#D4537E;cursor:pointer;text-decoration:underline" onclick="showPg('pg-payment')">go back</span></div>
+  </div>
+</div>
+
 <!-- PAYMENT -->
 <div class="page" id="pg-payment">
   <nav class="nav">
@@ -359,7 +373,7 @@ footer a{color:#D4537E;text-decoration:none}
         <div class="mf"><span class="dot y">✓</span>your personal 90-day action plan</div>
       </div>
       <div class="price-display">$9.99 <span>one-time</span></div>
-      <button class="btn btn-primary" style="width:100%;font-size:16px;padding:14px" onclick="window.location.href='https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00'">pay $9.99 with stripe</button>
+      <button class="btn btn-primary" style="width:100%;font-size:16px;padding:14px" onclick="openStripe()">pay $9.99 with stripe</button>
       <div style="font-size:12px;color:#bbb;margin-top:12px">secured by stripe — we never see your card details</div>
     </div>
   </div>
@@ -560,12 +574,6 @@ async function callClaude(prompt){
 }
 
 async function generateResults(){
-  if(isPaid){
-    isPaid=false;
-    savedProfile=buildProfile();
-    unlockPremium();
-    return;
-  }
   $('gen-btn').disabled=true;
   savedProfile=buildProfile();
   showPg('pg-results');
@@ -612,14 +620,13 @@ Respond ONLY with a valid JSON array, no markdown. Each object: {"title":"career
   }
 }
 
-if(window.location.search.includes('paid=true')){
-  isPaid=true;
-  showPg('pg-premium');
-  $('prem-loading').style.display='block';
-  $('prem-cards').innerHTML='';
-  $('premium-sub').textContent='complete your quiz to generate your full reading';
-  $('prem-loading').innerHTML='<div style="text-align:center;padding:2rem 0"><div style="font-size:18px;font-weight:700;color:#111;margin-bottom:12px">payment confirmed!</div><div style="font-size:14px;color:#777;margin-bottom:20px;line-height:1.6">take the quiz below and your full reading will generate automatically at the end.</div><button class="btn btn-primary" style="font-size:15px;padding:12px 28px" id="start-paid-btn">start my full reading</button></div>';
-  document.getElementById('start-paid-btn').onclick = function(){ showPg('pg-quiz'); qgo(1); };
+function openStripe(){
+  window.open('https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00','_blank');
+  showPg('pg-waitpay');
+}
+
+function checkPaid(){
+  unlockPremium();
 }
 </script>
 </body>
