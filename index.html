@@ -425,7 +425,7 @@ let mbtiMode='test',ennMode='test';
 
 function $(id){return document.getElementById(id);}
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0);}
-function startQuiz(){showPg('pg-quiz');qgo(1);}
+function startQuiz(){if(!isPaid)resetAll();showPg('pg-quiz');qgo(1);}
 
 function makeTagGrid(cid,items,set,max){
   const el=$(cid);el.innerHTML='';
@@ -610,7 +610,7 @@ if(window.location.search.includes('paid=true')){
   $('prem-loading').style.display='block';
   $('prem-cards').innerHTML='';
   $('premium-sub').textContent='complete your quiz to generate your full reading';
-  $('prem-loading').innerHTML=`<div style="text-align:center;padding:2rem 0"><div style="font-size:18px;font-weight:700;color:#111;margin-bottom:12px">payment confirmed!</div><div style="font-size:14px;color:#777;margin-bottom:20px;line-height:1.6">take the quiz below and your full reading will generate automatically at the end — no paywall.</div><button class="btn btn-primary" style="font-size:15px;padding:12px 28px" onclick="isPaid=true;startQuiz()">start my full reading</button></div>`;
+  $('prem-loading').innerHTML=`<div style="text-align:center;padding:2rem 0"><div style="font-size:18px;font-weight:700;color:#111;margin-bottom:12px">payment confirmed!</div><div style="font-size:14px;color:#777;margin-bottom:20px;line-height:1.6">take the quiz below and your full reading will generate automatically at the end — no paywall.</div><button class="btn btn-primary" style="font-size:15px;padding:12px 28px" onclick="isPaid=true;showPg('pg-quiz');qgo(1)">start my full reading</button></div>`;
 }
 
 let isPaid=false;
