@@ -175,7 +175,7 @@ footer{text-align:center;padding:2rem 1rem;border-top:1px solid #f5f5f5;font-siz
       <div class="plan hot">
         <div class="plan-badge">full reading</div>
         <div class="plan-label">One-time</div>
-        <div class="plan-price">$9.99 <sub>once</sub></div>
+        <div class="plan-price">$4.99 <sub>once</sub></div>
         <div class="plan-line yes"><span class="dot y">✓</span>Everything in free</div>
         <div class="plan-line yes"><span class="dot y">✓</span>Deep career breakdown</div>
         <div class="plan-line yes"><span class="dot y">✓</span>Salary ranges</div>
@@ -214,7 +214,7 @@ footer{text-align:center;padding:2rem 1rem;border-top:1px solid #f5f5f5;font-siz
       <div class="plan hot">
         <div class="plan-badge">most popular</div>
         <div class="plan-label">Full reading</div>
-        <div class="plan-price">$9.99 <sub>one-time</sub></div>
+        <div class="plan-price">$4.99 <sub>one-time</sub></div>
         <div class="plan-line yes"><span class="dot y">✓</span>All 5 career matches</div>
         <div class="plan-line yes"><span class="dot y">✓</span>Deep career breakdown</div>
         <div class="plan-line yes"><span class="dot y">✓</span>Salary ranges</div>
@@ -356,8 +356,8 @@ footer{text-align:center;padding:2rem 1rem;border-top:1px solid #f5f5f5;font-siz
         <div class="mf"><span class="dot y">✓</span>how to actually break into each field</div>
         <div class="mf"><span class="dot y">✓</span>your personal 90-day action plan</div>
       </div>
-      <div class="price-display">$9.99 <span>one-time</span></div>
-      <button class="btn btn-primary" style="width:100%;font-size:16px;padding:14px" onclick="openStripe()">pay $9.99 with stripe</button>
+      <div class="price-display">$4.99 <span>one-time</span></div>
+      <button class="btn btn-primary" style="width:100%;font-size:16px;padding:14px" onclick="openStripe()">pay $4.99 with stripe</button>
       <div style="font-size:12px;color:#bbb;margin-top:12px">secured by stripe</div>
     </div>
   </div>
@@ -590,10 +590,14 @@ async function generateResults(){
     if(sel.mbti)parts.push(sel.mbti);
     if(sel.enneagram)parts.push('type '+sel.enneagram.split(' ')[0]);
     ge('res-sub').textContent=parts.length?'based on your '+parts.join(' + ')+' profile':'based on your hobbies, strengths, and values';
-    ge('cards-free').innerHTML=freeResults.map(function(c,i){
+    ge('cards-free').innerHTML=freeResults.slice(0,2).map(function(c,i){
       return '<div class="result-card"><div class="result-rank">#'+(i+1)+' match</div><div class="result-title">'+c.title+'</div><div class="result-vibe">'+c.shortWhy+'</div><div class="result-tags">'+(c.tags||[]).map(function(t){return '<span class="result-tag">'+t+'</span>';}).join('')+'</div></div>';
     }).join('');
-    ge('paywall-section').innerHTML='<div class="paywall-box"><div class="pw-title">want the full deep-dive?</div><div class="pw-sub">salary ranges, how to break in, and a 90-day action plan for each career.</div><div style="text-align:left;margin-bottom:12px"><div class="pw-feature"><span class="dot y">✓</span>deep breakdown for all 5 careers</div><div class="pw-feature"><span class="dot y">✓</span>real salary ranges and job outlook</div><div class="pw-feature"><span class="dot y">✓</span>how to get hired with no experience</div><div class="pw-feature"><span class="dot y">✓</span>your personal 90-day action plan</div></div><button class="btn btn-primary" onclick="showPg(\'pg-payment\')" style="width:100%;font-size:15px;padding:12px">unlock full reading — $9.99</button><div style="font-size:12px;color:#bbb;margin-top:8px">one-time · no subscription</div></div>';
+    var top=freeResults[0]?freeResults[0].title:'your top career';
+    var third=freeResults[2]?freeResults[2].title:'Career #3';
+    var fourth=freeResults[3]?freeResults[3].title:'Career #4';
+    var fifth=freeResults[4]?freeResults[4].title:'Career #5';
+    ge('paywall-section').innerHTML='<div class="result-card" style="border:1px solid #f0d0d8"><div class="result-rank">#3 match</div><div class="result-title" style="filter:blur(4px);user-select:none">'+third+'</div><div style="filter:blur(4px);user-select:none;font-size:14px;color:#666;margin-bottom:10px">This career matches your personality in a way most people overlook. Your specific strengths make you a natural fit...</div><div class="result-tags" style="filter:blur(4px);user-select:none"><span class="result-tag">locked</span><span class="result-tag">locked</span></div></div><div class="result-card" style="border:1px solid #f0d0d8"><div class="result-rank">#4 match</div><div class="result-title" style="filter:blur(4px);user-select:none">'+fourth+'</div><div style="filter:blur(4px);user-select:none;font-size:14px;color:#666;margin-bottom:10px">A surprising match based on your enneagram and hobbies that most career quizzes would never suggest...</div></div><div class="result-card" style="border:1px solid #f0d0d8"><div class="result-rank">#5 match</div><div class="result-title" style="filter:blur(4px);user-select:none">'+fifth+'</div><div style="filter:blur(4px);user-select:none;font-size:14px;color:#666;margin-bottom:10px">This one might surprise you — but it lines up perfectly with how you work and what you value...</div></div><div class="paywall-box"><div class="pw-title">you got '+top+' as your #1 match</div><div class="pw-sub">don\'t stop there — unlock your full reading to see exactly how to actually get there, what it pays, and your 90-day plan to make it happen.</div><div style="text-align:left;margin-bottom:12px"><div class="pw-feature"><span class="dot y">✓</span>careers #3, #4 and #5 unlocked</div><div class="pw-feature"><span class="dot y">✓</span>deep breakdown for all 5 careers</div><div class="pw-feature"><span class="dot y">✓</span>real salary ranges and job outlook</div><div class="pw-feature"><span class="dot y">✓</span>how to get hired with no experience</div><div class="pw-feature"><span class="dot y">✓</span>your personal 90-day action plan</div></div><button class="btn btn-primary" onclick="showPg(\'pg-payment\')" style="width:100%;font-size:15px;padding:12px">unlock full reading — $4.99</button><div style="font-size:12px;color:#bbb;margin-top:8px">one-time · no subscription · no catch</div></div>';
     const top=freeResults[0]?freeResults[0].title:'my top career match';
     ge('share-section').innerHTML='<div class="share-card"><div class="share-text">share your result — <strong>I got '+top+'</strong></div><button class="btn" style="font-size:12px;padding:6px 14px" onclick="navigator.clipboard.writeText(\'just took the clairo career quiz and got '+top+' as my #1 match — try it free: clairo-one-rouge.vercel.app\').then(function(){alert(\'copied!\')})">copy to share</button></div>';
   }catch(e){
@@ -602,7 +606,7 @@ async function generateResults(){
   ge('gen-btn').disabled=false;
 }
 function openStripe(){
-  window.open('https://buy.stripe.com/8x2dR85aD8iK3VE7XFfbq00','_blank');
+  window.open('https://buy.stripe.com/5kQ14mcD5buWdwe7XFfbq01','_blank');
   showPg('pg-waitpay');
 }
 async function unlockPremium(){
